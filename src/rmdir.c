@@ -2,5 +2,8 @@
 
 int
 main(int argc, char *argv[]) {
-  rmdir(*argv);
+  while(*argv) {
+    rmdir(*argv);
+    *argv++;
+  }
 }
