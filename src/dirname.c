@@ -8,6 +8,6 @@ main(int argc, char *argv[]) {
     fprintf(stderr, "%s", argv[0]);
     return 1;
   }
-  puts(dir);
+  printf("%s/\n", dir); /* Trailing slash because POSIX */
   return 0;
 }
