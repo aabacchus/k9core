@@ -37,7 +37,7 @@ main(int argc, char *argv[])
 	 {
 	   fd = open(argv[i],O_RDONLY);
 	   if(fd<0)
-	     fprintf(stderr,"Cannot open %s",argv[i]);
+	     fprintf(stderr,"Cannot open %s\n",argv[i]);
 	   else
 	     {
 	       cat(fd,argv[i]);
