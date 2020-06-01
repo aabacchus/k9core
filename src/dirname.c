@@ -2,9 +2,10 @@
 #include <libgen.h>
 
 int
-main(int argc, char *argv[]) {
-  char *dir;
-  if((dir = dirname(argv[1])) == NULL) {
+main(int argc, char *argv[])
+{
+  char *dir = dirname(argv[1]);
+  if(dir == NULL) {
     fprintf(stderr, "%s", argv[0]);
     return 1;
   }

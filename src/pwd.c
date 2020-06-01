@@ -2,7 +2,8 @@
 #include <stdio.h>
 
 int
-main() {
+main()
+{
   puts(getcwd(NULL, 0));
   return 1;
 }
