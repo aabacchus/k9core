@@ -70,3 +70,12 @@ chmod("whatever",420)
 chmod("whatever",420) /* 420 is 644 in decimal
 
 ~~~
+
+## For commiters
+
+Commiters may or may not be anonymous. If you want to be
+anonymous. Set whatever you want to git name and git email.
+
+If you don't want to be anonymous, you should sign your commits using
+gpg. See
+[this]https://docs.gitlab.com/ee/user/project/repository/gpg_signed_commits/()

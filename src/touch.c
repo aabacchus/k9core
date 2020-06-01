@@ -1,6 +1,7 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <sys/stat.h>
+#include <unistd.h>
 
 int
 main(int argc, char *argv[])
@@ -19,5 +20,6 @@ main(int argc, char *argv[])
       return 1;
     }
   chmod(argv[1],420); /* 644 in decimal */
+  close(fd);
   return 0;
 }
