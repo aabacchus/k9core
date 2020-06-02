@@ -10,13 +10,16 @@ main(int argc, char *argv[])
       printf("Usage: ln oldfile newfile\n");
       return 1;
     }
-  int opts;
-  int fd;
-  while((opts = getopt(argc, argv, "s:")) != -1)
+  int opts, fd, fflag;
+  while((opts = getopt(argc, argv, "sf")) != -1)
     {
       switch(opts)
         {
-	case 's': 
+	case 'f':
+	  fflag=1;
+	case 's':
+	  if(fflag && (access(argv[3], F_OK) != 1))
+	    unlink(argv[3]);
 	  symlink(argv[2],argv[3]);
 	  break;
 	case '?':
