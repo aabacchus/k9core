@@ -1,0 +1,13 @@
+- [ ] The rest of programs.
+- [ ] Manuals
+- [-] flags for the programs
+  - [X] ln
+  - [X] cat
+  - [ ] dirname
+  - [ ] echo
+  - [ ] mkdir
+  - [ ] pwd
+  - [ ] rmdir
+  - [ ] rm
+  - [ ] touch
+  - [X] yes

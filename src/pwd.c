@@ -5,5 +5,5 @@ int
 main()
 {
   puts(getcwd(NULL, 0));
-  return 1;
+  return 0;
 }
