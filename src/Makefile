@@ -11,5 +11,11 @@ compile:
 	$(CC) -o rmdir	rmdir.o
 	$(CC) -o touch	touch.o
 	$(CC) -o yes	yes.o
-clean:
+
+objclean: *.o
+	rm *.o
+
+clean: objclean
 	rm *.o cat dirname echo ln mkdir pwd rmdir touch yes
+
+.PHONY: clean objclean compile
