@@ -1,15 +1,15 @@
-$CC = cc
+CC = cc
 
 compile:
-	cc -c *.c
-	cc -o cat 	cat.o
-	cc -o dirname 	dirname.o
-	cc -o echo 	echo.o
-	cc -o ln	ln.o
-	cc -o mkdir	mkdir.o
-	cc -o pwd	pwd.o
-	cc -o rmdir	rmdir.o
-	cc -o touch	touch.o
-	cc -o yes	yes.o
+	$(CC) -c *.c
+	$(CC) -o cat 	cat.o
+	$(CC) -o dirname 	dirname.o
+	$(CC) -o echo 	echo.o
+	$(CC) -o ln	ln.o
+	$(CC) -o mkdir	mkdir.o
+	$(CC) -o pwd	pwd.o
+	$(CC) -o rmdir	rmdir.o
+	$(CC) -o touch	touch.o
+	$(CC) -o yes	yes.o
 clean:
 	rm *.o cat dirname echo ln mkdir pwd rmdir touch yes
