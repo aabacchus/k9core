@@ -20,7 +20,12 @@ main(int argc, char *argv[])
 	case 's':
 	  if(fflag && (access(argv[3], F_OK) != 1))
 	    unlink(argv[3]);
-	  symlink(argv[2],argv[3]);
+	  int symstat =  symlink(argv[2],argv[3]);
+	  if(symstat == -1)
+	    {
+	      fprintf(stderr, "Symlink error!");
+	      return 1;
+	    }
 	  break;
 	case '?':
 	  printf("-%c: Argument not found", optopt);

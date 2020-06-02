@@ -11,3 +11,4 @@
   - [ ] rm
   - [ ] touch
   - [X] yes
+- [ ] Add error handling and returning for ln
