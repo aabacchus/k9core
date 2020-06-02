@@ -1,3 +1,4 @@
 * The rest of programs.
 * Manuals
 * flags for the programs
+* fix yes (constantly returns y when no argument is passed)
