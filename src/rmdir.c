@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <stdio.h>
+#include <err.h>
 
 int
 main(int argc, char *argv[]) {
@@ -9,13 +10,13 @@ main(int argc, char *argv[]) {
       int fd = rmdir(argv[i]); /* Is it actually a file descriptor? */
       if(fd == -1)
         {
-	  fprintf(stderr,"Error removing dir %s\n",argv[i]);
+	  warn("Error removing dir %s\n",argv[i]);
 	  errors++;
 	}
     }
   if(errors>0)
     {
-      printf("%i error(s) found\n",errors);
+      warn("%i error(s) found\n",errors);
     }
   return 0;
 }
