@@ -1,3 +1,5 @@
+# This makefile is BSD compatiable: You can run it without gmake on most systems
+
 CC = cc
 
 compile:
@@ -12,10 +14,7 @@ compile:
 	$(CC) -o touch	touch.o
 	$(CC) -o yes	yes.o
 
-objclean: *.o
-	rm *.o
-
-clean: objclean
+clean:
 	rm *.o cat dirname echo ln mkdir pwd rmdir touch yes
 
 .PHONY: clean objclean compile
