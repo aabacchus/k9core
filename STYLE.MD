@@ -45,6 +45,10 @@ if(fd == -1)
 }
 ~~~
 
+## Do not include .c files
+
+Just don't.
+
 ## Comments
 
 Do not use C++ style comments. Comments at beggining of the line
@@ -79,3 +83,4 @@ anonymous. Set whatever you want to git name and git email.
 If you don't want to be anonymous, you should sign your commits using
 gpg. See
 [this]https://docs.gitlab.com/ee/user/project/repository/gpg_signed_commits/()
+
