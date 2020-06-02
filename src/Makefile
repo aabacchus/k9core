@@ -1,7 +1,15 @@
-CCCOMPILER: cc
+$CC = cc
 
 compile:
-	cc echo.c  -o echo
-	cc touch.c -o touch
-	cc pwd.c   -o pwd
-	cc cat.c   -o cat
+	cc -c *.c
+	cc -o cat 	cat.o
+	cc -o dirname 	dirname.o
+	cc -o echo 	echo.o
+	cc -o ln	ln.o
+	cc -o mkdir	mkdir.o
+	cc -o pwd	pwd.o
+	cc -o rmdir	rmdir.o
+	cc -o touch	touch.o
+	cc -o yes	yes.o
+clean:
+	rm *.o cat dirname echo ln mkdir pwd rmdir touch yes
