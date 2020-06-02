@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
 
-/* TODO -s flag */
-
 int
 main(int argc, char *argv[])
 {
@@ -14,6 +12,7 @@ main(int argc, char *argv[])
     }
   int opts;
   int fd;
+  /* I am aware that this doesn't conform to style, but it's the only option that actually works */
   while((opts = getopt(argc, argv, "s:")) != -1)
     {
       switch(opts)
