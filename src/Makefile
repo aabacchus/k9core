@@ -5,6 +5,7 @@ CC = cc
 compile:
 	$(CC) -c *.c
 	$(CC) -o cat 	cat.o
+	$(CC) -o kill   kill.o
 	$(CC) -o dirname 	dirname.o
 	$(CC) -o echo 	echo.o
 	$(CC) -o ln	ln.o
@@ -15,6 +16,6 @@ compile:
 	$(CC) -o yes	yes.o
 
 clean:
-	rm *.o cat dirname echo ln mkdir pwd rmdir touch yes
+	rm *.o cat dirname echo ln mkdir pwd rmdir touch yes kill
 
 .PHONY: clean objclean compile
