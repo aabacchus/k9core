@@ -1,19 +1,11 @@
 #include <stdio.h>
-#include <string.h>
 
 int
 main(int argc, char *argv[])
 {
-  char a = 'y';
-
-  if(argv[1] != NULL)
-    {
-      strcpy(&a,argv[1]);
-    }
-  while(1)
-    {
-      putchar(a);
-      putchar('\n');
-    }
+  if(argc > 1)
+    while(1) puts(argv[1]);
+  else
+    while(1) puts("y");
   return 0;
 }
