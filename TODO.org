@@ -1,4 +1,6 @@
-- [ ] The rest of programs.
+- [-] The rest of programs.
+  - [X] yes
+  - [ ] ln
 - [ ] Manuals
 - [-] flags for the programs
   - [X] ln
