@@ -1,3 +1,5 @@
+#+TITLE: k9core coding style
+#+AUTHOR: the k9core team
 * k9core coding style
   :PROPERTIES:
   :CUSTOM_ID: k9core-coding-style
@@ -102,4 +104,50 @@ whatever you want to git name and git email.
 
 If you don't want to be anonymous, you should sign your commits using
 gpg. See
-[this]https://docs.gitlab.com/ee/user/project/repository/gpg_signed_commits/()
+[[this][https://docs.gitlab.com/ee/user/project/repository/gpg_signed_commits/]]
+
+** C Standard
+    :PROPERTIES:
+    :CUSTOM_ID: c-standard
+    :END:
+Development on k9core is to be done in C99 with possible backwards compatiability with ANSI C.
+Using c11 or gnu11 or something like that is to be avoided.
+
+*** Examples
+This is okay to use:
+#+BEGIN_SRC c
+  #include <stdio.h>
+  /* Valid C99 */
+
+  int
+  main
+  {
+    puts("This will be executed");
+    return 0;
+  }
+#+END_SRC
+
+This is not:
+#+BEGIN_SRC c
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <stdnoreturn.h>
+
+  /* This is not valid c99 */
+
+  noreturn void
+  stop(int i)
+  {
+    if(i > 0) exit(i);
+    else      exit(1);
+  }
+
+  int
+  main()
+  {
+    puts("This will be executed");
+    stop(0);
+    puts("This will not be executed");
+  }
+#+END_SRC
+
