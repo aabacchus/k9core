@@ -1,5 +1,5 @@
 # k9core
 
-minimalist coreutils
+Extremely minimalist coreutils.
 
-licensed under the vpl
+Licensed under the k9pl. See LICENSE for more information.
