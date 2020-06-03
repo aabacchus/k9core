@@ -16,7 +16,6 @@ main(int argc, char *argv[])
     case 3:
       sig = abs(atoi(argv[1]));
       pid = abs(atoi(argv[2]));
-      puts("Here 2");
       break;
     default:
       fprintf(stderr, "Specify who to kill\n");
