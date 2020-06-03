@@ -8,10 +8,11 @@ main(int argc, char *argv[])
   if(!strcmp(argv[1], "-n"))
     nflag = 1;
   ++argv;
-  while(*argv) {
-    (void)fputs(*argv, stdout);   // Print argv
-    if(*++argv) putchar(' ');     // If multiple things in argv, print a space between them.
-  }
+  while(*argv)
+    {
+      (void)fputs(*argv, stdout);   /* Print argv */
+      if(*++argv) putchar(' ');     /* If multiple things in argv, print a space between them. */
+    }
   if(!nflag) putchar('\n');
   return 0;
 }
