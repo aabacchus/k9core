@@ -1,5 +1,6 @@
-# k9core
+* k9core
 
 Extremely minimalist coreutils.
 
+** License
 Licensed under the k9pl. See LICENSE for more information.
