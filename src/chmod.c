@@ -11,7 +11,7 @@ main(int argc, char *argv[])
       int fd = chmod(argv[i],mode);
       if(fd == -1)
         {
-          printf("Error setting %i on %s\n",mode,argv[i]);
+          fprintf(stderr,"Error setting %i on %s\n",mode,argv[i]);
         }
     }
 
