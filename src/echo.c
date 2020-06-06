@@ -5,9 +5,12 @@ int
 main(int argc, char *argv[])
 {
   int nflag;
-  if(!strcmp(argv[1], "-n"))
-    nflag = 1;
-  ++argv;
+  if(!strcmp(*++argv, "-n"))
+    {
+      nflag = 1;
+      argv++;
+    }
+    
   while(*argv)
     {
       (void)fputs(*argv, stdout);   /* Print argv */
