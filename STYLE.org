@@ -5,45 +5,56 @@
   :CUSTOM_ID: k9core-coding-style
   :END:
 
-Pretty similar to the GNU code standards.
+  Pretty similar to the GNU code standards.
 
 ** Functions definition
    :PROPERTIES:
    :CUSTOM_ID: functions-definition
    :END:
 
-Functions have to begin with return type, breakline, and functionname,
-also brackets will be in a new line:
+   Functions have to begin with return type, breakline, and functionname,
+   also brackets will be in a new line:
 
-#+BEGIN_SRC C
+   #+BEGIN_SRC C
   int
   main(int argc, char *argv[])
-#+END_SRC
+   #+END_SRC
+** Variables
+   Naming style for variables is snake_case.
 
+   In declaration of
+   pointers the * is adjacent to the name, not to the type:
+   #+BEGIN_SRC c
+   int* p /* wrong */
+   int *p /* right */
+   int* p, q /* Confusing, p is a pointer while y is not */
+   int *p, q /* Not confusing, clearly p is a pointer and y is not */
+   #+END_SRC
+   
 ** Line length
    :PROPERTIES:
    :CUSTOM_ID: line-length
    :END:
 
-A line of code must no exced 75 characters. If it exceeds, do a
-breakline:
+   A line of code must no exced 75 characters. If it exceeds, do a
+   breakline:
 
-#+BEGIN_SRC C
+   #+BEGIN_SRC C
 
-  int 
+  int
   a_very_long_function(int a_very_long_parameter, int
                        another_very_long_parameter);
-#+END_SRC
+   #+END_SRC
 
 ** Statements
    :PROPERTIES:
    :CUSTOM_ID: statements
    :END:
 
-Do not do declarations inside an if block. Declarations inside while
-loop are OK.
+   Do not do declarations inside an if block. Declarations inside while
+   loop are OK.
 
-#+BEGIN_SRC C
+   #+BEGIN_SRC C
   int fd;
   if((fd = open("file", O_CREAT)) == -1) /* Don't do this */
   {
@@ -53,29 +64,29 @@ loop are OK.
   /* Do this instead */
 
   int fd = open("file", O_CREAT);
-  if(fd == -1) 
+  if(fd == -1)
   {
       /* Whatever */
   }
-#+END_SRC
+   #+END_SRC
 
 ** Do not include .c files
    :PROPERTIES:
    :CUSTOM_ID: do-not-include-.c-files
    :END:
 
-Just don't.
+   Just don't.
 
 ** Comments
    :PROPERTIES:
    :CUSTOM_ID: comments
    :END:
 
-Do not use C++ style comments. Comments at beggining of the line should
-explain what the line does. not how it does. Comments at the end of the
-line must be explanations of something:
+   Do not use C++ style comments. Comments at beggining of the line should
+   explain what the line does. not how it does. Comments at the end of the
+   line must be explanations of something:
 
-#+BEGIN_SRC C
+   #+BEGIN_SRC C
   // This is a wrong comment
 
   /* This is a correct comment */
@@ -91,31 +102,31 @@ line must be explanations of something:
   /* 420 is 644 in decimal */ <- WRONG
   chmod("whatever",420)
 
-  chmod("whatever",420) /* 420 is 644 in decimal
-#+END_SRC
+  chmod("whatever",420) /* 420 is 644 in decimal */
+   #+END_SRC
 
 ** For commiters
    :PROPERTIES:
    :CUSTOM_ID: for-commiters
    :END:
 
-Commiters may or may not be anonymous. If you want to be anonymous. Set
-whatever you want to git name and git email.
+   Commiters may or may not be anonymous. If you want to be anonymous. Set
+   whatever you want to git name and git email.
 
-If you don't want to be anonymous, you should sign your commits using
-gpg. See
-[[this][https://docs.gitlab.com/ee/user/project/repository/gpg_signed_commits/]]
+   If you don't want to be anonymous, you should sign your commits using
+   gpg. See
+   [[this][https://docs.gitlab.com/ee/user/project/repository/gpg_signed_commits/]]
 
 ** C Standard
-    :PROPERTIES:
-    :CUSTOM_ID: c-standard
-    :END:
-Development on k9core is to be done in C99 with possible backwards compatiability with ANSI C.
-Using c11 or gnu11 or something like that is to be avoided.
+   :PROPERTIES:
+   :CUSTOM_ID: c-standard
+   :END:
+   Development on k9core is to be done in C99 with possible backwards compatiability with ANSI C.
+   Using c11 or gnu11 or something like that is to be avoided.
 
 *** Examples
-This is okay to use:
-#+BEGIN_SRC c
+    This is okay to use:
+    #+BEGIN_SRC c
   #include <stdio.h>
   /* Valid C99 */
 
@@ -125,10 +136,10 @@ This is okay to use:
     puts("This will be executed");
     return 0;
   }
-#+END_SRC
+    #+END_SRC
 
-This is not:
-#+BEGIN_SRC c
+    This is not:
+    #+BEGIN_SRC c
   #include <stdio.h>
   #include <stdlib.h>
   #include <stdnoreturn.h>
@@ -149,5 +160,4 @@ This is not:
     stop(0);
     puts("This will not be executed");
   }
-#+END_SRC
-
+    #+END_SRC
