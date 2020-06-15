@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <dirent.h>
-#include <unistd.h>
 #include <getopt.h>
 
 int
