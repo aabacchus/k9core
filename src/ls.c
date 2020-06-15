@@ -11,7 +11,11 @@ main(void)
   if(dir != NULL)
     {
       while((ent = readdir(dir)) != NULL)
-        printf("%s ",ent->d_name); /* TODO: sort, and do not display . and .. */
+        {
+          if(ent->d_name[0] == '.')
+            continue;
+          printf("%s ",ent->d_name); /* TODO: sort, and do not display . and .. */
+        }
     }
   closedir(dir);
   printf("\n");
