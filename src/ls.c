@@ -1,10 +1,20 @@
 #include <stdio.h>
 #include <dirent.h>
 #include <unistd.h>
+#include <getopt.h>
 
 int
-main(void)
+main(int argc, char *argv[])
 {
+  int c = getopt(argc,argv,"a");
+  int all;
+  switch(c)
+    {
+    case 'a':
+      all = 1;
+      break;
+    }
+  
   DIR *dir = opendir(".");
   struct dirent *ent;
 
@@ -12,7 +22,7 @@ main(void)
     {
       while((ent = readdir(dir)) != NULL)
         {
-          if(ent->d_name[0] == '.')
+          if(ent->d_name[0] == '.' && !all)
             continue;
           printf("%s ",ent->d_name); /* TODO: sort, and do not display . and .. */
         }
