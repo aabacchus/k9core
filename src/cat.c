@@ -1,48 +1,30 @@
 #include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
+
 
 int
-cat(int fd, char *string)
+cat(FILE *file)
 {
-  char buf[256];
-  long lines;
 
-  while((lines=read(fd, buf, (long)sizeof(buf)))>0)
+  char c;
+  if (file == NULL)
     {
-      if(write(1,buf,lines)!=lines)
-        {
-	  fprintf(stderr,"Error copying. %s",string);
-	  return 1;
-        }
-      if (lines < 0)
-	{
-	  fprintf(stderr,"Error reading %s",string);
-	  return 1;
-	}
+      fprintf(stderr,"Error opening file\n");
+      return 1;
     }
+  while((c = fgetc(file)) > 0)
+    putchar(c);
   return 0;
 }
-
 int
 main(int argc, char *argv[])
 {
-  int fd, i;
-
   if(argc == 1)
-    {
-      cat(0,"<stdin>");
-    }
-  else for(i=1;i<argc; i++)
+    cat(stdin);
+  else {
+    for(int i = 1; i<argc;i++)
 	 {
-	   fd = open(argv[i],O_RDONLY);
-	   if(fd<0)
-	     fprintf(stderr,"Cannot open %s\n",argv[i]);
-	   else
-	     {
-	       cat(fd,argv[i]);
-	       close(fd);
-	     }
+	   cat(fopen(argv[i],"r"));
 	 }
+  }
   return 0;
 }
