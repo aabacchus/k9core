@@ -6,7 +6,7 @@ int
 cat(int fd,const char *filename)
 {
   
-  char c;
+  int c;
   char buf[8192];
   if(fd != 0)
     fd = open(filename, O_RDONLY);
@@ -15,8 +15,8 @@ cat(int fd,const char *filename)
       fprintf(stderr,"Error opening file\n");
       return 1;
     }
-  while((c = read(fd,buf,sizeof(buf)) > 0))
-    printf("%s",buf);
+  while((c = read(fd,buf,sizeof(buf))) > 0)
+    write(1,buf,c);
   return 0;
 }
 int
