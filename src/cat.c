@@ -5,18 +5,21 @@
 int
 cat(int fd,const char *filename)
 {
-  
   int c;
   char buf[8192];
+
   if(fd != 0)
     fd = open(filename, O_RDONLY);
-  if ( fd == -1)
+
+  if (fd == -1)
     {
       fprintf(stderr,"Error opening file\n");
       return 1;
     }
+
   while((c = read(fd,buf,sizeof(buf))) > 0)
     write(1,buf,c);
+
   return 0;
 }
 int
