@@ -36,7 +36,7 @@ main(int argc, char *argv[])
 {
   if (argc == 1)
     {
-      fprintf(stderr,"usage: cp source destination\n");
+      fprintf(stderr,"usage: mv source destination\n");
       return 1;
     }
   else
