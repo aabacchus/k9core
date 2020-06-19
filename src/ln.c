@@ -18,8 +18,10 @@ main(int argc, char *argv[])
 	case 'f':
 	  fflag=1;
 	case 's':
-	  if(fflag && (access(argv[3], F_OK) != 1))
-	    unlink(argv[3]);
+	  if(fflag && (access(argv[3], F_OK) != 1)) {
+	    if(remove(argv[3]) == -1)
+	      rmdir(argv[3]);
+	  }
 	  int symstat =  symlink(argv[2],argv[3]);
 	  if(symstat == -1)
 	    {
