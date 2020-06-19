@@ -13,12 +13,11 @@ main(int argc, char *argv[])
   int opts, fd, fflag;
   while((opts = getopt(argc, argv, "sf")) != -1)
     {
+      if(opts == 'f') fflag=1;
       switch(opts)
         {
-	case 'f':
-	  fflag=1;
 	case 's':
-	  if(fflag && (access(argv[3], F_OK) != 1)) {
+	  if(fflag == 1 && (access(argv[3], F_OK) != 1)) {
 	    if(remove(argv[3]) == -1)
 	      rmdir(argv[3]);
 	  }
