@@ -1,8 +1,10 @@
 #include <stdio.h>
+#include <pwd.h>
 #include <unistd.h>
+
 int
 main(void)
 {
-  printf("%s\n",getlogin());
-  return 0;
+  struct passwd *user_data = getpwuid(getuid());
+  printf("%s\n",user_data->pw_name);
 }
