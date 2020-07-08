@@ -41,5 +41,5 @@ main(int argc, char *argv[]) {
     {
       fprintf(stderr,"error mounting: %i\n",errno);
     }
-
+  return 0;
 }
