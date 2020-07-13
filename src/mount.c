@@ -39,7 +39,7 @@ main(int argc, char *argv[]) {
   int fd = mount(argv[source],argv[destination],filesystem,0,NULL);
   if(fd == -1)
     {
-      fprintf(stderr,"error mounting: %i\n",errno);
+      fprintf(stderr,"error mounting: %i = %s\n",errno,strerror(errno));
     }
   return 0;
 }

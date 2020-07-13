@@ -2,6 +2,7 @@
 #include <sys/mount.h>
 #include <errno.h>
 #include <getopt.h>
+#include <string.h>
 
 int
 main(int argc, char *argv[])
@@ -22,6 +23,6 @@ main(int argc, char *argv[])
   int fd = umount2(argv[destination],options);
   if(fd == -1)
     {
-      printf("error umounting: %i\n",errno);
+      printf("error umounting: %i = %s\n",errno,strerror(errno));
     }
 }

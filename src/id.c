@@ -18,8 +18,8 @@ main(int argc, char *argv[])
       break;
     default:
       printf("%u %s\n",user_data->pw_gid,user_data->pw_name); /* I know
-                                                             * it does not work 
-							     * like this */
+							       * it does not work 
+							       * like this */
     }
 
   return 0;
