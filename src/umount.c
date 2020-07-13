@@ -23,6 +23,6 @@ main(int argc, char *argv[])
   int fd = umount2(argv[destination],options);
   if(fd == -1)
     {
-      printf("error umounting: %i = %s\n",errno,strerror(errno));
+      fprintf(stderr,"error umounting: %i = %s\n",errno,strerror(errno));
     }
 }
