@@ -1,36 +1,30 @@
 #include <stdio.h>
-
+/* #include <unistd.h>
+   #include <fcntl.h> 
 int
 move(const char *src, const char *dst)
 {
-  FILE *source = fopen(src,"r");
-  FILE *destination = fopen(dst,"w");
-  if(destination == NULL)
+  int source = open(src,O_RDONLY);
+  int destination = creat(dst,0644);
+
+  if(destination == -1)
     {
       printf("Error opening destination file\n");
       return 1;
     }
-  if(source == NULL)
+  if(source == -1)
     {
       printf("Error opening source file\n");
       return 1;
     }
-
-  char c;
-
-  while((c = fgetc(source)) > 0)
-    {
-      int value = fputc(c,destination);
-      if(value == -1)
-        {
-          printf("Error\n");
-          return 1;
-        }
-    }
-  remove(src);
+  int lines;
+  char buf[8912];
+  while((lines = read(source,buf,sizeof(buf))) > 0)
+    write(destination,buf,lines);
+  close(destination); close(source);
   return 0;
 }
-
+*/
 int
 main(int argc, char *argv[])
 {
@@ -40,6 +34,6 @@ main(int argc, char *argv[])
       return 1;
     }
   else
-    move(argv[1],argv[2]);
+    rename(argv[1],argv[2]);
 
 }
