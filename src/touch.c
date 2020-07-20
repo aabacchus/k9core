@@ -12,14 +12,13 @@ main(int argc, char *argv[])
       return 1;
     }
 
-  int fd = open(argv[1],O_RDWR|O_CREAT);
+  int fd = creat(argv[1],0644);
 
   if(fd == -1)
     {
       fprintf(stderr,"Error creating file\n");
       return 1;
     }
-  chmod(argv[1],420); /* 644 in decimal */
   close(fd);
   return 0;
 }
