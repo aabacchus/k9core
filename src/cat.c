@@ -19,7 +19,7 @@ cat(int fd,const char *filename)
 
   while((c = read(fd,buf,sizeof(buf))) > 0)
     write(1,buf,c);
-
+  close(fd);
   return 0;
 }
 int
@@ -31,6 +31,6 @@ main(int argc, char *argv[])
          {
            cat(1,argv[i]);
          }
-
+  
   return 0;
 }

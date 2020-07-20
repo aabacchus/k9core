@@ -22,6 +22,7 @@ copy(const char *src, const char *dst)
   char buf[8912];
   while((lines = read(source,buf,sizeof(buf))) > 0)
     write(destination,buf,lines);
+  close(destination); close(source);
   return 0;
 }
 
