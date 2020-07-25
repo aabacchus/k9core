@@ -10,7 +10,7 @@
 int
 fill_with_zeroes(const char *filename)
 {
-  int fd = open(filename,O_RDWR);
+  int fd = open(filename,O_WRONLY);
   if(fd == -1)
     {
       printf("Error reading file: %i = %s\n",errno,strerror(errno));
@@ -19,11 +19,11 @@ fill_with_zeroes(const char *filename)
   struct stat stat_struct; /* What name should i use? */
   stat(filename,&stat_struct);
   long int bytes_to_write = stat_struct.st_size;
-  int bytes_read = 0;
   char *buf = NULL;
+  
   buf = malloc(bytes_to_write);
-  while((bytes_read = read(fd,buf,bytes_to_write)) > 0)
-    write(fd,"\0",bytes_to_write + 4096);
+  for(int i = 0; i < bytes_to_write; i++)
+    write(fd,"\0\0\0\0\0",bytes_to_write + 2048);
   free(buf);
   return 0;
 }
