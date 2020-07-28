@@ -23,11 +23,10 @@ main(int argc, char *argv[])
         {
           if(ent->d_name[0] == '.' && !all)
             continue;
-          printf("%s ",ent->d_name); /* TODO: sort, and do not display . and .. */
+          printf("%s\n",ent->d_name); /* TODO: sort, and do not display . and .. */
         }
     }
   closedir(dir);
-  printf("\n");
 
   return 0;
 }

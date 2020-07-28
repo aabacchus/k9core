@@ -12,7 +12,7 @@ main(int argc, char *argv[])
       return 1;
     }
 
-  int fd = creat(argv[1],0644);
+  int fd = creat(argv[1], 0644);
 
   if(fd == -1)
     {
