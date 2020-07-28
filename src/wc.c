@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <ctype.h>
 
 void
 wc(FILE *file)
@@ -11,7 +12,7 @@ wc(FILE *file)
       bytes++;
       if(c == '\n')
         newlines++;
-      if(c == ' ')
+      if(isspace(c))
         spaces++;
     }
   printf("%i %i %i\n",newlines,spaces,bytes);
