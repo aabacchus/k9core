@@ -11,6 +11,7 @@ main(int argc, char *argv[])
       fprintf(stderr,"What do I unlink?\n");
       return 1;
     }
+
   int fd = unlink(argv[1]);
   if(fd == -1)
     {
