@@ -27,10 +27,11 @@ main(int argc, char *argv[])
 {
   if(argc == 1)
     cat(0,NULL);
-  else for(int i = 1; i<argc;i++)
-         {
+  else
+    for(int i = 1; i<argc;i++)
+     {
            cat(1,argv[i]);
-         }
+     }
   
   return 0;
 }
