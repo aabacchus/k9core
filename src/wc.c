@@ -3,6 +3,8 @@
 #include <getopt.h>
 #include <stdlib.h>
 
+/* TODO: fix stdin */
+
 struct wc_values
 {
   int lines;
@@ -34,7 +36,6 @@ wc(FILE *file)
   foobar.lines = newlines;
   foobar.words = spaces;
 
-  // printf("%i %i %i\n",newlines,spaces,bytes);
   fclose(file);
   return foobar;
 }
@@ -42,31 +43,43 @@ wc(FILE *file)
 int
 main(int argc, char *argv[])
 {
-  int c = getopt(argc, argv, "clw");
+  int c;
+  int show_lines, show_words, show_bytes;
+  show_lines = show_words = show_bytes = 0;
   struct wc_values data;
-  if (argc == 1)
-    data = wc(stdin);
-  else
+  /* Process arguments */
+
+  while((c = getopt(argc,argv,"lwc")) > 0)
     {
-      for(int i = optind; i<argc;i++)
-        {
-          data = wc(fopen(argv[i],"r"));
-          switch(c)
-            {
-            case 'c':
-              printf("%i\n",data.bytes);
-              break;
-            case 'l':
-              printf("%i\n",data.lines);
-              break;
-            case 'w':
-              printf("%i\n",data.words);
-              break;
-            default:
-              printf("%i %i %i\n",data.lines,data.words,data.bytes);
-            }
-        }
+      switch(c)
+	{
+	case 'l':
+	  show_lines = 1;
+	  break;
+	case 'w':
+	  show_words = 1;
+	  break;
+	case 'c':
+	  show_bytes = 1;
+	break;
+	default:
+	  show_lines = show_words = show_bytes = 1;
+	}
+    }
+  for(int i = optind; i<argc;i++)
+    {
+      if(argc > 1)
+	{
+	  data = wc(fopen(argv[i],"r"));
+	  if(show_lines)
+	    printf("%i ",data.lines);
+	  if(show_words)
+	    printf("%i ",data.words);
+	  if(show_bytes)
+	    printf("%i",data.words);
+	}
 
     }
+  printf("\n");
   return 0;
 }
