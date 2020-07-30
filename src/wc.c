@@ -45,7 +45,7 @@ main(int argc, char *argv[])
 {
   int c;
   int show_lines, show_words, show_bytes;
-
+  show_lines = show_words = show_bytes = 1;
   struct wc_values data;
   /* Process arguments */
 
@@ -54,13 +54,13 @@ main(int argc, char *argv[])
       switch(c)
         {
         case 'l':
-          show_lines = 1;
+          show_lines = 0;
           break;
         case 'w':
-          show_words = 1;
+          show_words = 0;
           break;
         case 'c':
-          show_bytes = 1;
+          show_bytes = 0;
           break;
         }
     }
@@ -72,14 +72,17 @@ main(int argc, char *argv[])
             data = wc(fopen(argv[i],"r"));
           else
             data = wc(stdin);
-          /* printf("%i %i %i\n",show_lines, show_bytes,
-             show_words); */
-          if(show_lines)
-            printf("%i ",data.lines);
-          if(show_words)
-            printf("%i ",data.words);
-          if(show_bytes)
-            printf("%i",data.bytes);
+          if(show_lines && show_words && show_bytes)
+            printf("%i %i %i",data.lines, data.words, data.bytes);
+          else
+            {
+	      if(!show_lines)
+		printf("%i ",data.lines);
+	      if(!show_words)
+		printf("%i ",data.words);
+	      if(!show_bytes)
+		printf("%i ",data.bytes);
+	    }
         }
       printf("\n");
     }
