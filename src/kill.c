@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
-#include <getopt.h>
 
 void
 list_signals(void)
@@ -27,8 +26,12 @@ main(int argc, char *argv[])
 
   int sig = 0;
   pid_t pid;
-  int c = getopt(argc, argv,"l");
-  if(c == 'l')
+  if(argc == 1)
+    {
+      fprintf(stderr,"expected something\n");
+      return 1;
+    }
+  if(argv[1][1] == 'l')
     {
     list_signals();
     return 0;
