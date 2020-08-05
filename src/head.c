@@ -11,13 +11,12 @@ head(FILE *file, int lines)
     }
   int a;
   int c = 0;
-  
+
   while((a = fgetc(file)) != EOF)
     {
       if(a == '\n')
-        {
-          ++c;
-        }
+	++c;
+
       putchar(a);
       if(c == lines)
         return lines;
@@ -30,7 +29,7 @@ int
 main(int argc, char *argv[])
 {
   int lines = 10;
-   switch(argc)
+  switch(argc)
     {
     case 1:
       head(stdin,lines);
