@@ -30,12 +30,7 @@ int
 main(int argc, char *argv[])
 {
   int lines = 10;
-  if(argv[1][1] == 'n' && argc == 4)
-    {
-
-    }
-
-  switch(argc)
+   switch(argc)
     {
     case 1:
       head(stdin,lines);
