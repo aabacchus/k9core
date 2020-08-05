@@ -4,8 +4,14 @@
 int
 head(FILE *file, int lines)
 {
+  if(file == NULL)
+    {
+      printf("error opening file\n");
+      return 1;
+    }
   int a;
   int c = 0;
+  
   while((a = fgetc(file)) != EOF)
     {
       if(a == '\n')
@@ -24,14 +30,27 @@ int
 main(int argc, char *argv[])
 {
   int lines = 10;
-  if(argc == 1)
-    head(stdin,lines);
-  if(argc == 2)
-    head(fopen(argv[1],"r"),lines);
-  if(argc == 3)
+  if(argv[1][1] == 'n' && argc == 4)
     {
+
+    }
+
+  switch(argc)
+    {
+    case 1:
+      head(stdin,lines);
+      break;
+    case 2:
+      head(fopen(argv[1],"r"),lines);
+      break;
+    case 3:
       lines = abs(atoi(argv[1]));
       head(fopen(argv[2],"r"),lines);
+      break;
+    default:
+      lines = atoi(argv[2]);
+      head(fopen(argv[3],"r"),lines);
+      break;
     }
   return 0;
 }
