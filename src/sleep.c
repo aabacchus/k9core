@@ -1,15 +1,16 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+
 int
 main(int argc, char *argv[])
 {
   if(argc == 1)
     {
-      printf("missing opperand\n");
+      fprintf(stderr,"missing opperand\n");
+      return 1;
     }
+  usleep(atof(argv[1]) * 1000000);
 
-  sleep(atoi(argv[1]));
-  
   return 0;
 }
