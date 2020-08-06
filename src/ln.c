@@ -26,7 +26,7 @@ main(int argc, char *argv[])
           int symstat =  symlink(argv[2],argv[3]);
           if(symstat == -1)
             {
-              fprintf(stderr, "Symlink error!");
+              fprintf(stderr, "Symlink error: %i = %s",errno,strerror(errno));
               return 1;
             }
           break;

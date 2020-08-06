@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <errno.h>
+#include <string.h>
 
 int
 copy(const char *src, const char *dst)
@@ -10,12 +12,12 @@ copy(const char *src, const char *dst)
 
   if(destination == -1)
     {
-      printf("Error opening destination file\n");
+      fprintf(stderr,"Error opening destination file: %i = %s\n",errno,strerror(errno));
       return 1;
     }
   if(source == -1)
     {
-      printf("Error opening source file\n");
+      fprintf(stderr,"Error opening source file: %i = %s\n",errno,strerror(errno));
       return 1;
     }
   int lines;
@@ -29,12 +31,13 @@ copy(const char *src, const char *dst)
 int
 main(int argc, char *argv[])
 {
+  int fd;
   if (argc == 1)
     {
       fprintf(stderr,"usage: cp source destination\n");
       return 1;
     }
   else
-    copy(argv[1],argv[2]);
+    fd = copy(argv[1],argv[2]);
 
 }

@@ -1,7 +1,7 @@
 #include <unistd.h>
 #include <stdio.h>
-#include <err.h>
-
+#include <errno.h>
+#include <string.h>
 int
 main(int argc, char *argv[]) {
   int errors = 0;
@@ -10,13 +10,10 @@ main(int argc, char *argv[]) {
       int fd = rmdir(argv[i]); /* Is it actually a file descriptor? */
       if(fd == -1)
         {
-	  warn("Error removing dir %s\n",argv[i]);
+	  fprintf(stderr,"Error removing dir %s: %i = %s\n",argv[i],
+		  errno,strerror(errno));
 	  errors++;
 	}
-    }
-  if(errors>0)
-    {
-      warn("%i error(s) found\n",errors);
     }
   return 0;
 }

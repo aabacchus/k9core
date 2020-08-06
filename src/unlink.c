@@ -15,7 +15,8 @@ main(int argc, char *argv[])
   int fd = unlink(argv[1]);
   if(fd == -1)
     {
-      printf("Error unlinking: %i = %s\n",errno,strerror(errno));
+      fprintf(stderr,"Error unlinking: %i = %s\n",
+	      errno,strerror(errno));
     }
   return 0;
 

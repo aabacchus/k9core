@@ -1,5 +1,6 @@
 #include <stdio.h>
-
+#include <errno.h>
+#include <string.h>
 int
 main(int argc, char *argv[])
 {
@@ -14,7 +15,7 @@ main(int argc, char *argv[])
       int fd = remove(argv[i]);
       if(fd == -1)
         {
-          fprintf(stderr,"Error removing file: %s\n",argv[i]);
+          fprintf(stderr,"Error removing file: %i = %s",errno,strerror(errno));
 
         }
     }

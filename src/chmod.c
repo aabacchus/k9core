@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/stat.h>
+#include <errno.h>
+#include <string.h>
 
 int
 main(int argc, char *argv[])
@@ -11,7 +13,7 @@ main(int argc, char *argv[])
       int fd = chmod(argv[i],mode);
       if(fd == -1)
         {
-          fprintf(stderr,"Error setting %i on %s\n",mode,argv[i]);
+          fprintf(stderr,"Error setting %i on %s\n %i = %s",mode,argv[i],errno,strerror(errno));
         }
     }
 

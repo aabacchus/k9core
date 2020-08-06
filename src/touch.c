@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <errno.h>
+#include <string.h>
 
 int
 main(int argc, char *argv[])
@@ -16,7 +18,7 @@ main(int argc, char *argv[])
 
   if(fd == -1)
     {
-      fprintf(stderr,"Error creating file\n");
+      fprintf(stderr,"Error creating file: %i = %s\n",errno,strerror(errno));
       return 1;
     }
   close(fd);

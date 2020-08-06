@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
+#include <string.h>
 
 int
 head(FILE *file, int lines)
 {
   if(file == NULL)
     {
-      printf("error opening file\n");
+      fprintf(stderr,"error opening file: %i = %s\n",errno,strerror(errno));
       return 1;
     }
   int a;
