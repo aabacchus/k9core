@@ -3,19 +3,48 @@
 CC = cc
 
 compile:
-	$(CC) -c *.c
-	$(CC) -o cat 	cat.o
-	$(CC) -o kill   kill.o
-	$(CC) -o dirname 	dirname.o
-	$(CC) -o echo 	echo.o
-	$(CC) -o ln	ln.o
-	$(CC) -o mkdir	mkdir.o
-	$(CC) -o pwd	pwd.o
-	$(CC) -o rmdir	rmdir.o
-	$(CC) -o touch	touch.o
-	$(CC) -o yes	yes.o
+	$(CC)	-c	*.c
+	$(CC)	-o bin/cat		cat.o
+	$(CC)	-o bin/chmod		chmod.o
+	$(CC)	-o bin/chown		chown.o
+	$(CC)	-o bin/cp		cp.o
+	$(CC)	-o bin/dirname		dirname.o
+	$(CC)	-o bin/echo		echo.o
+	$(CC)	-o bin/exec		exec.o
+	$(CC)	-o bin/false		false.o
+	$(CC)	-o bin/groups		groups.o
+	$(CC)	-o bin/head		head.o
+	$(CC)	-o bin/hostid		hostid.o
+	$(CC)	-o bin/hostname		hostname.o
+	$(CC)	-o bin/id		id.o
+	$(CC)	-o bin/kill		kill.o
+	$(CC)	-o bin/ln		ln.o
+	$(CC)	-o bin/longname		logname.o
+	$(CC)	-o bin/ls		ls.o
+	$(CC)	-o bin/mkdir		mkdir.o
+	$(CC)	-o bin/mount		mount.o
+	$(CC)	-o bin/mv		mv.o
+	$(CC)	-o bin/nproc		nproc.o
+	$(CC)	-o bin/pwd		pwd.o
+	$(CC)	-o bin/rm		rm.o
+	$(CC)	-o bin/rmdir		rmdir.o
+	$(CC)	-o bin/shred		shred.o
+	$(CC)	-o bin/sleep 		sleep.o
+	$(CC)	-o bin/sync		sync.o
+	$(CC)	-o bin/touch		touch.o
+	$(CC)	-o bin/true		true.o
+	$(CC)	-o bin/tty		tty.o
+	$(CC)	-o bin/umount		umount.o
+	$(CC)	-o bin/unlink		unlink.o
+	$(CC)	-o bin/wc		wc.o
+	$(CC)	-o bin/whoami		whoami.o
+	$(CC)	-o bin/yes		yes.o
+
 
 clean:
-	rm *.o cat dirname echo ln mkdir pwd rmdir touch yes kill
-
-.PHONY: clean objclean compile
+	rm *.o
+install:
+	mkdir /usr/local/k9core
+	mv bin/* /usr/local/k9core/
+.PHONY:
+	clean objclean compile
