@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
-
+#include <getopt.h>
 int
 cat(int fd,const char *filename)
 {
@@ -25,13 +25,15 @@ cat(int fd,const char *filename)
 int
 main(int argc, char *argv[])
 {
+
   if(argc == 1)
     cat(0,NULL);
   else
-    for(int i = 1; i<argc;i++)
-     {
-           cat(1,argv[i]);
-     }
-  
+    for(int i = optind; i<argc;i++)
+      {
+	int c = getopt(argc, argv, "c");
+	cat(1,argv[i]);
+      }
+
   return 0;
 }
