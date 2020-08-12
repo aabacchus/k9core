@@ -31,7 +31,7 @@ main(int argc, char *argv[])
   else
     for(int i = optind; i<argc;i++)
       {
-	int c = getopt(argc, argv, "c");
+	int c = getopt(argc, argv, "u");
 	cat(1,argv[i]);
       }
 
