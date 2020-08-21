@@ -14,6 +14,7 @@ main(int argc, char *argv[])
   int operating_system = 0;
   int nothing = 0;
   struct utsname kernel_info;
+
   if(argc == 1)
     nothing = 1;
   while((c = getopt(argc, argv, "amnrsv")) != -1)
@@ -25,11 +26,12 @@ main(int argc, char *argv[])
         case 'n': node_name = 1; break;
         case 'r': kernel_release = 1; break;
         case 's': kernel_name = 1; break;
-	case 'v': operating_system = 1; break;
-	
+        case 'v': operating_system = 1; break;
         }
     }
+
   uname(&kernel_info);
+
   if(all)
     {
       printf("%s %s %s %s %s %s\n",
@@ -38,21 +40,20 @@ main(int argc, char *argv[])
              kernel_info.release,
              kernel_info.sysname,
              kernel_info.version,
-	     kernel_info.machine);
+             kernel_info.machine);
     }
-  else{
-    if(machine)
-      printf("%s ",kernel_info.machine);
-    if(node_name)
-      printf("%s ",kernel_info.nodename);
-    if(kernel_release)
-      printf("%s ",kernel_info.release);
-    if(kernel_name || nothing)
-      printf("%s ",kernel_info.sysname);
-    printf("\n");
+  else
+    {
+      if(machine)
+	printf("%s ",kernel_info.machine);
+      if(node_name)
+	printf("%s ",kernel_info.nodename);
+      if(kernel_release)
+	printf("%s ",kernel_info.release);
+      if(kernel_name || nothing)
+	printf("%s ",kernel_info.sysname);
+      printf("\n");
 
-  }
-  
-  
+    }
   return 0;
 }
