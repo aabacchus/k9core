@@ -1,6 +1,24 @@
 #include <stdio.h>
 #include <sys/utsname.h>
 #include <getopt.h>
+#include <string.h>
+
+const char
+*get_operating_system()
+{
+#ifdef __gnu_linux__
+  return "GNU/Linux";
+#endif
+#ifdef __FreeBSD__
+  return "FreeBSD";
+#endif
+#ifdef __OpenBSD__
+  return "OpenBSD";
+#endif
+#ifdef _WIN32
+  return "Here's a USB stick kid, get a real operating system";
+#endif
+}
 
 int
 main(int argc, char *argv[])
@@ -35,23 +53,25 @@ main(int argc, char *argv[])
   if(all)
     {
       printf("%s %s %s %s %s %s\n",
-             kernel_info.machine,
+             kernel_info.sysname,
              kernel_info.nodename,
              kernel_info.release,
-             kernel_info.sysname,
              kernel_info.version,
-             kernel_info.machine);
+             kernel_info.machine,
+	     get_operating_system());
     }
   else
     {
       if(machine)
-	printf("%s ",kernel_info.machine);
+        printf("%s ",kernel_info.machine);
       if(node_name)
-	printf("%s ",kernel_info.nodename);
+        printf("%s ",kernel_info.nodename);
       if(kernel_release)
-	printf("%s ",kernel_info.release);
+        printf("%s ",kernel_info.release);
       if(kernel_name || nothing)
-	printf("%s ",kernel_info.sysname);
+        printf("%s ",kernel_info.sysname);
+      if(operating_system)
+	printf("%s",get_operating_system());
       printf("\n");
 
     }
