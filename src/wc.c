@@ -3,13 +3,15 @@
 #include <getopt.h>
 #include <stdlib.h>
 
-/* TODO: fix stdin */
+int show_lines, show_words, show_bytes;
+struct wc_values data;
 
 struct wc_values
 {
   int lines;
   int bytes;
   int words;
+  char *filename;
 };
 
 struct wc_values
@@ -39,14 +41,31 @@ wc(FILE *file)
   fclose(file);
   return foobar;
 }
-
+void
+print_values()
+{
+  if(show_bytes && show_lines && show_words)
+    printf("%i %i %i",
+           data.lines,
+           data.words,
+           data.bytes);
+  else
+    {
+      if(!show_lines)
+        printf("%i ",data.lines);
+      if(!show_words)
+        printf("%i ",data.words);
+      if(!show_bytes)
+        printf("%i ",data.bytes);
+    }
+  printf("\n");
+}
 int
 main(int argc, char *argv[])
 {
   int c;
-  int show_lines, show_words, show_bytes;
+
   show_lines = show_words = show_bytes = 1;
-  struct wc_values data;
   /* Process arguments */
 
   while((c = getopt(argc,argv,"lwc")) > 0)
@@ -64,28 +83,16 @@ main(int argc, char *argv[])
           break;
         }
     }
-  for(int i = optind; i<argc;i++)
-    {
-      if(argc > 1)
-        {
-          if(argc > i)
-            data = wc(fopen(argv[i],"r"));
-          else
-            data = wc(stdin);
-          if(show_lines && show_words && show_bytes)
-            printf("%i %i %i",data.lines, data.words, data.bytes);
-          else
-            {
-	      if(!show_lines)
-		printf("%i ",data.lines);
-	      if(!show_words)
-		printf("%i ",data.words);
-	      if(!show_bytes)
-		printf("%i ",data.bytes);
-	    }
-        }
-      printf("\n");
-    }
 
+  if(optind == argc)
+    {
+      data = wc(stdin);
+      print_values();
+    }
+  else for(int i = optind; i<argc; i++)
+         {
+           data = wc(fopen(argv[i],"r"));
+           print_values();
+         }
   return 0;
 }
