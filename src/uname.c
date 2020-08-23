@@ -18,6 +18,7 @@ const char
 #ifdef _WIN32
   return "Here's a USB stick kid, get a real operating system";
 #endif
+  return "Unknown operating system";
 }
 
 int
