@@ -68,7 +68,7 @@ main(int argc, char *argv[])
   show_lines = show_words = show_bytes = 1;
   /* Process arguments */
 
-  while((c = getopt(argc,argv,"lwc")) > 0)
+  while((c = getopt(argc,argv,"lwcm")) > 0)
     {
       switch(c)
         {
@@ -79,8 +79,10 @@ main(int argc, char *argv[])
           show_words = 0;
           break;
         case 'c':
+	case 'm':
           show_bytes = 0;
-          break;
+	break;
+
         }
     }
 
