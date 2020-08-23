@@ -12,9 +12,11 @@ main(int argc, char *argv[])
     {
       int fd = chmod(argv[i],mode);
       if(fd == -1)
-        {
-          fprintf(stderr,"Error setting %i on %s\n %i = %s",mode,argv[i],errno,strerror(errno));
-        }
+          fprintf(stderr,"Error setting %i on %s\n %i = %s",
+		  mode,
+		  argv[i],
+		  errno,
+		  strerror(errno));
     }
 
   return 0;
