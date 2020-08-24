@@ -79,9 +79,9 @@ main(int argc, char *argv[])
           show_words = 0;
           break;
         case 'c':
-	case 'm':
+        case 'm':
           show_bytes = 0;
-	break;
+	  break;
 
         }
     }
@@ -93,7 +93,10 @@ main(int argc, char *argv[])
     }
   else for(int i = optind; i<argc; i++)
          {
-           data = wc(fopen(argv[i],"r"));
+           if(argv[i][0] == '-')
+             data = wc(stdin);
+           else
+	     data = wc(fopen(argv[i],"r"));
            print_values();
          }
   return 0;
