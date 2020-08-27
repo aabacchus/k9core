@@ -55,19 +55,25 @@
    loop are OK.
 
    #+BEGIN_SRC C
-  int fd;
-  if((fd = open("file", O_CREAT)) == -1) /* Don't do this */
-  {
-   /* Whatever */
-  }
-
-  /* Do this instead */
-
-  int fd = open("file", O_CREAT);
-  if(fd == -1)
-  {
+     int fd;
+     if((fd = open("file", O_CREAT)) == -1) /* Don't do this */
+     {
       /* Whatever */
-  }
+     }
+
+     /* Do this instead */
+
+     int fd = open("file", O_CREAT);
+     if(fd == -1)
+     {
+	 /* Whatever */
+     }
+     /* Or this */
+     if(open("file",O_CREAT) == -1)
+       {
+       /* Whatever */
+       
+
    #+END_SRC
 
 ** Do not include .c files

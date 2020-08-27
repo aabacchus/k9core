@@ -3,7 +3,7 @@
 CC = cc
 
 compile:
-	$(CC)	-c	*.c
+	$(CC)	-c	*.c nouserland/*.c
 	$(CC)	-o bin/cat		cat.o
 	$(CC)	-o bin/chmod		chmod.o
 	$(CC)	-o bin/chown		chown.o
@@ -22,7 +22,7 @@ compile:
 	$(CC)	-o bin/longname		logname.o
 	$(CC)	-o bin/ls		ls.o
 	$(CC)	-o bin/mkdir		mkdir.o
-	$(CC)	-o bin/mount		mount.o
+	$(CC)	-o bin/mount		nouserland/mount.o
 	$(CC)	-o bin/mv		mv.o
 	$(CC)	-o bin/nproc		nproc.o
 	$(CC)	-o bin/pwd		pwd.o
@@ -34,12 +34,12 @@ compile:
 	$(CC)	-o bin/touch		touch.o
 	$(CC)	-o bin/true		true.o
 	$(CC)	-o bin/tty		tty.o
-	$(CC)	-o bin/umount		umount.o
+	$(CC)	-o bin/umount		nouserland/umount.o
 	$(CC)	-o bin/unlink		unlink.o
 	$(CC)	-o bin/wc		wc.o
 	$(CC)	-o bin/whoami		whoami.o
 	$(CC)	-o bin/yes		yes.o
-
+	$(CC) 	-o bin/uname		uname.o
 
 clean:
 	rm *.o
