@@ -11,7 +11,6 @@ struct wc_values
   int lines;
   int bytes;
   int words;
-  char *filename;
 };
 
 struct wc_values
@@ -42,7 +41,7 @@ wc(FILE *file)
   return foobar;
 }
 void
-print_values()
+print_values(const char*filename)
 {
   if(show_bytes && show_lines && show_words)
     printf("%i %i %i",
@@ -58,7 +57,7 @@ print_values()
       if(!show_bytes)
         printf("%i ",data.bytes);
     }
-  printf("\n");
+  printf(" %s\n",filename);
 }
 int
 main(int argc, char *argv[])
@@ -89,7 +88,7 @@ main(int argc, char *argv[])
   if(optind == argc)
     {
       data = wc(stdin);
-      print_values();
+      print_values("stdin");
     }
   else for(int i = optind; i<argc; i++)
          {
@@ -97,7 +96,7 @@ main(int argc, char *argv[])
              data = wc(stdin);
            else
 	     data = wc(fopen(argv[i],"r"));
-           print_values();
+           print_values(argv[i]);
          }
   return 0;
 }
