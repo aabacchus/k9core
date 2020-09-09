@@ -21,7 +21,7 @@ tee(int fd)
       if(fd != 1)
 	write(1,buf,read_bytes);
     }
-  return 1;
+  return 0;
 }
 
 int
