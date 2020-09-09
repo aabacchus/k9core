@@ -16,7 +16,11 @@ tee(int fd)
   char buf[8192];
   int read_bytes = 0;
   while((read_bytes = read(0,buf,8192)) > 0)
-    write(fd,buf,read_bytes);
+    {
+      write(fd,buf,read_bytes);
+      if(fd != 1)
+	write(1,buf,read_bytes);
+    }
   return 1;
 }
 
