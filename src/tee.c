@@ -31,8 +31,9 @@ main(int argc, char *argv[])
   int append = 0;
   int ignore_signt = 0;
   int fd = 0;
-  int FLAGS = O_WRONLY; /* POSIX is a bit dumb, god knows why
-                                    this is not the same as O_RDWR */
+  int FLAGS = O_WRONLY; /* yeah, it will overwrite the thing if it
+			 * can't read what's in the file, thanks
+			 * POSIX! */
   while((c = getopt(argc, argv,"ai")) != -1)
     {
       switch(c)
@@ -52,7 +53,7 @@ main(int argc, char *argv[])
       if(argv[argc-1][0] == '-')
         fd = 1;
       if(append)
-	FLAGS = O_RDWR|O_APPEND;
+	FLAGS = O_RDWR|O_APPEND; /* Remember what I said? */
 
       fd = open(argv[argc-1],FLAGS);
       if(ignore_signt)
