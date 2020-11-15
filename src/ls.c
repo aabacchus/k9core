@@ -22,8 +22,6 @@ main(int argc, char *argv[])
           }
 
      }
-
-
      DIR *dir = opendir(".");
      struct dirent *ent;
 
