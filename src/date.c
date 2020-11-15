@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <string.h>
+
 int
 main(int argc,char *argv[])
 {
@@ -25,14 +26,12 @@ main(int argc,char *argv[])
      timeinfo = localtime(&now);
 
      if(u)
-     {
-	  timeinfo = gmtime(&now);
-     }
-     
+          timeinfo = gmtime(&now);
+
      if(argc > optind && argv[optind][0] == '+')
      {
-	  argv[optind] = strtok(argv[optind],"+");
-	  strcpy(FORMAT,argv[optind]);
+          argv[optind] = strtok(argv[optind],"+");
+          strcpy(FORMAT,argv[optind]);
      }
 
      strftime(buffer,256,FORMAT,timeinfo);
