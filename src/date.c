@@ -11,7 +11,7 @@ main(int argc,char *argv[])
      char buffer[256];
      time_t now;
      now = time(NULL);
-     char FORMAT[256] = "%F %H:%M:%S";
+     char FORMAT[256] = "%c";
      struct tm *timeinfo;
 
      while((c = getopt(argc,argv,"u")) != -1)
