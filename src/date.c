@@ -30,7 +30,7 @@ main(int argc,char *argv[])
 
      if(argc > optind && argv[optind][0] == '+')
      {
-          argv[optind] = strtok(argv[optind],"+");
+          argv[optind]++;
           strcpy(FORMAT,argv[optind]);
      }
 
