@@ -10,7 +10,7 @@ cat(int fd, const char *filename)
 {
   int c;
   char buf[8192];
-  if (filename[0] == '-')
+  if (filename[0] == '-' && filename[1] != 'u')
     fd = 0;
   
   if(fd != 0)
