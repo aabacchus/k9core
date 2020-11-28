@@ -1,0 +1,7 @@
+* contributing to this thing
+
+1. fork this repo using your own gitweb/cgit/gitea/gitlab server
+2. push your changes to another branch of it
+3. send me it via email
+4. ???
+5. profit!
