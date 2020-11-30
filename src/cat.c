@@ -17,7 +17,8 @@ cat(int fd, const char *filename)
           fd = open(filename, O_RDONLY);
 
      if (fd == -1)
-          fprintf(stderr,"error opening %s: %s\n",filename,strerror(errno));
+          fprintf(stderr,"error opening %s: %s\n",
+				  filename,strerror(errno));
 
 
      while((c = read(fd,buf,sizeof(buf))) > 0)
@@ -28,7 +29,7 @@ cat(int fd, const char *filename)
 int
 main(int argc, char *argv[])
 {
-     int c = getopt(argc,argv,"u");
+     getopt(argc,argv,"u");
      if (argc == optind)
           cat(0,"-");
      for(int i = optind; i<argc;i++)
