@@ -71,15 +71,15 @@ main(int argc, char *argv[])
       switch(c)
         {
         case 'l':
-          show_lines = 0;
-          break;
+		   show_lines = 0;
+		   break;
         case 'w':
-          show_words = 0;
-          break;
+		   show_words = 0;
+		   break;
         case 'c':
         case 'm':
-          show_bytes = 0;
-	  break;
+		   show_bytes = 0;
+		   break;
 
         }
     }
@@ -91,7 +91,7 @@ main(int argc, char *argv[])
     }
   else for(int i = optind; i<argc; i++)
          {
-           if(argv[i][0] == '-' && argv[i][1] == '\0')
+           if(argv[i][0] == '-')
              data = wc(stdin);
            else
 	     data = wc(fopen(argv[i],"r"));
