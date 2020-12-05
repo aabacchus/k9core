@@ -18,8 +18,7 @@ wc(FILE *file)
 {
   if(file == NULL)
     {
-      fprintf(stderr,"error\n");
-      exit(1);
+	    fprintf(stderr,"error opening file\n");
     }
   struct wc_values foobar;
   char c;
@@ -92,7 +91,7 @@ main(int argc, char *argv[])
     }
   else for(int i = optind; i<argc; i++)
          {
-           if(argv[i][0] == '-')
+           if(argv[i][0] == '-' && argv[i][1] == '\0')
              data = wc(stdin);
            else
 	     data = wc(fopen(argv[i],"r"));
