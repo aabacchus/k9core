@@ -5,7 +5,7 @@
   :CUSTOM_ID: k9core-coding-style
   :END:
 
-  Pretty similar to the GNU code standards.
+  literally k&r
 
 ** Functions definition
    :PROPERTIES:

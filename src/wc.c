@@ -17,9 +17,7 @@ struct wc_values
 wc(FILE *file)
 {
 	if(file == NULL)
-	{
 		fprintf(stderr,"error opening file\n");
-	}
 	struct wc_values foobar;
 	char c;
 	int newlines, spaces, bytes = 0;

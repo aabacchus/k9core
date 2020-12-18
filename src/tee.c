@@ -31,7 +31,7 @@ main(int argc, char *argv[])
   int append = 0;
   int ignore_signt = 0;
   int fd = 0;
-  int FLAGS = O_WRONLY; /* yeah, it will overwrite the thing if it
+  int FLAGS = O_WRONLY|O_CREAT; /* yeah, it will overwrite the thing if it
 			 * can't read what's in the file, thanks
 			 * POSIX! */
   while((c = getopt(argc, argv,"ai")) != -1)
