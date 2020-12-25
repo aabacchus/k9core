@@ -20,7 +20,6 @@ cat(int fd, const char *filename)
 		fprintf(stderr,"error opening %s: %s\n",
 			   filename,strerror(errno));
 
-
 	while((c = read(fd,buf,sizeof(buf))) > 0)
 		write(1,buf,c);
 	close(fd);
