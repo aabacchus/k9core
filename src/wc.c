@@ -5,6 +5,14 @@
 #include <errno.h>
 #include <string.h>
 
+/* TODO: fucking make this thing read binary data
+* Possible solutions: 
+* fread()
+* fgets()
+* rewrite this entire thing using read() (not a good idea 
+* because it's slow as shit)
+*/
+
 int show_lines, show_words, show_bytes;
 struct wc_values data;
 
@@ -26,12 +34,16 @@ wc(const char *filename, struct wc_values *data)
 		return -1;
 	}
 	char c;
+	char a;
 	int newlines, spaces, bytes = 0;
 	newlines = spaces = bytes = 0;
 	while((c = fgetc(file)) > 0)
 	{
+		a = c;
+		if(!isascii(c))
+			a = toascii(c);
 		bytes++;
-		if(c == '\n')
+		if(a == '\n')
 			newlines++;
 		if(isspace(c))
 			spaces++;
