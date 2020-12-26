@@ -2,6 +2,8 @@
 #include <ctype.h>
 #include <getopt.h>
 #include <stdlib.h>
+#include <errno.h>
+#include <string.h>
 
 int show_lines, show_words, show_bytes;
 struct wc_values data;
@@ -13,12 +15,16 @@ struct wc_values
 	int words;
 };
 
-struct wc_values
-wc(FILE *file)
+int
+wc(const char *filename, struct wc_values *data)
 {
-	if(file == NULL)
-		fprintf(stderr,"error opening file\n");
-	struct wc_values foobar;
+	FILE *file = fopen(filename,"r");
+	if(file == NULL) {
+		fprintf(stderr,"error opening file %s: %s\n",
+			filename,
+			strerror(errno));
+		return -1;
+	}
 	char c;
 	int newlines, spaces, bytes = 0;
 	newlines = spaces = bytes = 0;
@@ -30,21 +36,21 @@ wc(FILE *file)
 		if(isspace(c))
 			spaces++;
 	}
-	foobar.bytes = bytes;
-	foobar.lines = newlines;
-	foobar.words = spaces;
+	data->bytes = bytes;
+	data->lines = newlines;
+	data->words = spaces;
 
 	fclose(file);
-	return foobar;
+	return 0;
 }
 void
-print_values(const char*filename)
+print_values(const char *filename, struct wc_values data)
 {
 	if(show_bytes && show_lines && show_words)
 		printf("%i %i %i",
-			  data.lines,
-			  data.words,
-			  data.bytes);
+			data.lines,
+			data.words,
+			data.bytes);
 	else
 	{
 		if(!show_lines)
@@ -60,10 +66,10 @@ int
 main(int argc, char *argv[])
 {
 	int c;
-
+	struct wc_values data;
+	int return_value = 0; /* Please let me know a better name */
 	show_lines = show_words = show_bytes = 1;
 	/* Process arguments */
-
 	while((c = getopt(argc,argv,"lwcm")) > 0)
 	{
 		switch(c)
@@ -84,16 +90,17 @@ main(int argc, char *argv[])
 
 	if(optind == argc)
 	{
-		data = wc(stdin);
-		print_values("stdin");
+		wc("/dev/stdin",&data); /* lol */
+		print_values("stdin",data);
 	}
 	else for(int i = optind; i<argc; i++)
 		{
 			if(argv[i][0] == '-')
-				data = wc(stdin);
+				return_value = wc("/dev/stdin",&data);
 			else
-				data = wc(fopen(argv[i],"r"));
-			print_values(argv[i]);
+				return_value = wc(argv[i],&data);
+			if (return_value == 0)
+				print_values(argv[i],data);
 		}
 	return 0;
 }
