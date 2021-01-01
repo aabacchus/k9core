@@ -37,8 +37,7 @@ wc(const char *filename, struct wc_values *data)
 	char a;
 	int newlines, spaces, bytes = 0;
 	newlines = spaces = bytes = 0;
-	while((c = fgetc(file)) > 0)
-	{
+	while((c = fgetc(file)) > 0) {
 		a = c;
 		if(!isascii(c))
 			a = toascii(c);
@@ -63,8 +62,7 @@ print_values(const char *filename, struct wc_values data)
 			data.lines,
 			data.words,
 			data.bytes);
-	else
-	{
+	else	{
 		if(!show_lines)
 			printf("%i ",data.lines);
 		if(!show_words)
@@ -82,10 +80,8 @@ main(int argc, char *argv[])
 	int return_value = 0; /* Please let me know a better name */
 	show_lines = show_words = show_bytes = 1;
 	/* Process arguments */
-	while((c = getopt(argc,argv,"lwcm")) > 0)
-	{
-		switch(c)
-		{
+	while((c = getopt(argc,argv,"lwcm")) > 0){
+		switch(c)	{
 		case 'l':
 			show_lines = 0;
 			break;
@@ -100,13 +96,11 @@ main(int argc, char *argv[])
 		}
 	}
 
-	if(optind == argc)
-	{
+	if(optind == argc) {
 		wc("/dev/stdin",&data); /* lol */
 		print_values("stdin",data);
 	}
-	else for(int i = optind; i<argc; i++)
-		{
+	else for(int i = optind; i<argc; i++) {
 			if(argv[i][0] == '-')
 				return_value = wc("/dev/stdin",&data);
 			else
