@@ -35,16 +35,16 @@ wc(const char *filename, struct wc_values *data)
 	}
 	char c;
 	char a;
+	char buf;
 	int newlines, spaces, bytes = 0;
 	newlines = spaces = bytes = 0;
-	while((c = fgetc(file)) > 0) {
-		a = c;
-		if(!isascii(c))
-			a = toascii(c);
+	while((c = fread(&buf,1,1, file)) > 0) {
+		if(!isascii(buf))
+			a = toascii(buf);
 		bytes++;
-		if(a == '\n')
+		if(buf == '\n')
 			newlines++;
-		if(isspace(c))
+		if(isspace(buf))
 			spaces++;
 	}
 	data->bytes = bytes;
