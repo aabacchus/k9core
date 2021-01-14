@@ -16,12 +16,17 @@ cat(int fd, const char *filename)
 	if(fd != 0)
 		fd = open(filename, O_RDONLY);
 
-	if (fd == -1)
+	if (fd == -1) {
 		fprintf(stderr,"error opening %s: %s\n",
 			   filename,strerror(errno));
+		return -1;
+	}
 
-	while((c = read(fd,buf,sizeof(buf))) > 0)
+	while((c = read(fd,buf,sizeof(buf))) > 0) {
+		if(c == -1)
+			return -1;
 		write(1,buf,c);
+	}
 	close(fd);
 	return 0;
 }
