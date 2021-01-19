@@ -5,14 +5,6 @@
 #include <errno.h>
 #include <string.h>
 
-/* TODO: fucking make this thing read binary data
-* Possible solutions: 
-* fread()
-* fgets()
-* rewrite this entire thing using read() (not a good idea 
-* because it's slow as shit)
-*/
-
 int show_lines, show_words, show_bytes;
 struct wc_values data;
 
@@ -33,14 +25,13 @@ wc(const char *filename, struct wc_values *data)
 			strerror(errno));
 		return -1;
 	}
-	char c;
-	char a;
+	size_t c;
 	char buf;
 	int newlines, spaces, bytes = 0;
 	newlines = spaces = bytes = 0;
 	while((c = fread(&buf,1,1, file)) > 0) {
 		if(!isascii(buf))
-			a = toascii(buf);
+			buf = toascii(buf);
 		bytes++;
 		if(buf == '\n')
 			newlines++;
@@ -54,6 +45,7 @@ wc(const char *filename, struct wc_values *data)
 	fclose(file);
 	return 0;
 }
+
 void
 print_values(const char *filename, struct wc_values data)
 {
@@ -72,6 +64,7 @@ print_values(const char *filename, struct wc_values data)
 	}
 	printf(" %s\n",filename);
 }
+
 int
 main(int argc, char *argv[])
 {
@@ -100,8 +93,9 @@ main(int argc, char *argv[])
 		wc("/dev/stdin",&data); /* lol */
 		print_values("stdin",data);
 	}
-	else for(int i = optind; i<argc; i++) {
-			if(argv[i][0] == '-')
+	else
+		for(int i = optind; i<argc; i++) {
+			if(argv[i][0] == '-' && argv[i][1] == '\0')
 				return_value = wc("/dev/stdin",&data);
 			else
 				return_value = wc(argv[i],&data);
