@@ -13,7 +13,12 @@ struct wc_values
 	int lines;
 	int bytes;
 	int words;
+	int total_lines;
+	int total_bytes;
+	int total_words;
+	
 };
+
 
 int
 wc(const char *filename, struct wc_values *data)
@@ -42,12 +47,16 @@ wc(const char *filename, struct wc_values *data)
 	data->lines = newlines;
 	data->words = spaces;
 
+	data->total_bytes += data->bytes;
+	data->total_lines += data->lines;
+	data->total_words += data->words;
+	
 	fclose(file);
 	return 0;
 }
 
 void
-print_values(const char *filename, struct wc_values data)
+print_values(const char *filename, struct wc_values data, int show_total)
 {
 	if(show_bytes && show_lines && show_words)
 		printf("%i %i %i",
@@ -62,6 +71,8 @@ print_values(const char *filename, struct wc_values data)
 		if(!show_bytes)
 			printf("%i ",data.bytes);
 	}
+	if(show_total) {
+	}
 	printf(" %s\n",filename);
 }
 
@@ -70,6 +81,7 @@ main(int argc, char *argv[])
 {
 	int c;
 	struct wc_values data;
+	data.total_bytes = data.total_lines = data.total_words = 0;
 	int return_value = 0; /* Please let me know a better name */
 	show_lines = show_words = show_bytes = 1;
 	/* Process arguments */
@@ -88,10 +100,9 @@ main(int argc, char *argv[])
 
 		}
 	}
-
 	if(optind == argc) {
 		wc("/dev/stdin",&data); /* lol */
-		print_values("stdin",data);
+		print_values("stdin",data,0);
 	}
 	else
 		for(int i = optind; i<argc; i++) {
@@ -100,7 +111,13 @@ main(int argc, char *argv[])
 			else
 				return_value = wc(argv[i],&data);
 			if (return_value == 0)
-				print_values(argv[i],data);
+				print_values(argv[i],data,1);
 		}
+	if(argc > optind+1) 
+	printf("%i %i %i total\n",
+		data.total_lines,
+		data.total_words,
+		data.total_bytes);
+
 	return 0;
 }
