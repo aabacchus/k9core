@@ -1,7 +1,6 @@
+#include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <fcntl.h>
-
 
 /*
 int
@@ -12,13 +11,13 @@ move(const char *src, const char *dst)
 
   if(destination == -1)
     {
-      printf("Error opening destination file\n");
-      return 1;
+	 printf("Error opening destination file\n");
+	 return 1;
     }
   if(source == -1)
     {
-      printf("Error opening source file\n");
-      return 1;
+	 printf("Error opening source file\n");
+	 return 1;
     }
   int lines;
   char buf[8912];
@@ -29,14 +28,11 @@ move(const char *src, const char *dst)
 }
 */
 int
-main(int argc, char *argv[])
+main(int argc, char* argv[])
 {
-  if (argc == 1)
-    {
-      fprintf(stderr,"usage: mv source destination\n");
-      return 1;
-    }
-  else
-    rename(argv[1],argv[2]);
-
+	if (argc == 1) {
+		fprintf(stderr, "usage: mv source destination\n");
+		return 1;
+	} else
+		rename(argv[1], argv[2]);
 }

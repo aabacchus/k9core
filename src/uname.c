@@ -1,10 +1,10 @@
-#include <stdio.h>
-#include <sys/utsname.h>
 #include <getopt.h>
+#include <stdio.h>
 #include <string.h>
+#include <sys/utsname.h>
 
-const char
-*get_operating_system()
+const char*
+get_operating_system()
 {
 #ifdef __gnu_linux__
 	return "GNU/Linux";
@@ -22,7 +22,7 @@ const char
 }
 
 int
-main(int argc, char *argv[])
+main(int argc, char* argv[])
 {
 	int c;
 	int all = 0;
@@ -34,25 +34,34 @@ main(int argc, char *argv[])
 	int nothing = 0;
 	struct utsname kernel_info;
 
-	if(argc == 1)
+	if (argc == 1)
 		nothing = 1;
-	while((c = getopt(argc, argv, "amnrsv")) != -1)
-	{
-		switch(c)
-		{
-		case 'a': all = 1; break;
-		case 'm': machine = 1; break;
-		case 'n': node_name = 1; break;
-		case 'r': kernel_release = 1; break;
-		case 's': kernel_name = 1; break;
-		case 'v': operating_system = 1; break;
+	while ((c = getopt(argc, argv, "amnrsv")) != -1) {
+		switch (c) {
+			case 'a':
+				all = 1;
+				break;
+			case 'm':
+				machine = 1;
+				break;
+			case 'n':
+				node_name = 1;
+				break;
+			case 'r':
+				kernel_release = 1;
+				break;
+			case 's':
+				kernel_name = 1;
+				break;
+			case 'v':
+				operating_system = 1;
+				break;
 		}
 	}
 
 	uname(&kernel_info);
 
-	if(all)
-	{
+	if (all) {
 		printf("%s %s %s %s %s %s\n",
 			  kernel_info.sysname,
 			  kernel_info.nodename,
@@ -60,21 +69,18 @@ main(int argc, char *argv[])
 			  kernel_info.version,
 			  kernel_info.machine,
 			  get_operating_system());
-	}
-	else
-	{
-		if(machine)
-			printf("%s ",kernel_info.machine);
-		if(node_name)
-			printf("%s ",kernel_info.nodename);
-		if(kernel_release)
-			printf("%s ",kernel_info.release);
-		if(kernel_name || nothing)
-			printf("%s ",kernel_info.sysname);
-		if(operating_system)
-			printf("%s",get_operating_system());
+	} else {
+		if (machine)
+			printf("%s ", kernel_info.machine);
+		if (node_name)
+			printf("%s ", kernel_info.nodename);
+		if (kernel_release)
+			printf("%s ", kernel_info.release);
+		if (kernel_name || nothing)
+			printf("%s ", kernel_info.sysname);
+		if (operating_system)
+			printf("%s", get_operating_system());
 		printf("\n");
-
 	}
 	return 0;
 }
