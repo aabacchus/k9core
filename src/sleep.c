@@ -3,9 +3,9 @@
 #include <unistd.h>
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
-	if (argc == 1) {
+	if(argc == 1) {
 		fprintf(stderr, "missing opperand\n");
 		return 1;
 	}

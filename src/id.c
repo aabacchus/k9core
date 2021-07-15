@@ -3,11 +3,11 @@
 #include <stdio.h>
 #include <unistd.h>
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
 	int c = getopt(argc, argv, "Ggnru");
-	struct passwd* user_data = getpwnam(getlogin());
-	switch (c) {
+	struct passwd *user_data = getpwnam(getlogin());
+	switch(c) {
 		case 'g':
 		case 'u':
 			printf("%u\n", user_data->pw_gid);

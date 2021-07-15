@@ -32,20 +32,20 @@ list_signals(void)
 }
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
 
 	int sig = 0;
 	pid_t pid;
-	if (argc == 1) {
+	if(argc == 1) {
 		fprintf(stderr, "expected something\n");
 		return 1;
 	}
-	if (argv[1][1] == 'l') {
+	if(argv[1][1] == 'l') {
 		list_signals();
 		return 0;
 	}
-	switch (argc) {
+	switch(argc) {
 		case 2:
 			sig = 15;
 			pid = atoi(argv[1]);

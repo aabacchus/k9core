@@ -6,16 +6,16 @@
 #include <unistd.h>
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
-	if (argc <= 1) {
+	if(argc <= 1) {
 		fprintf(stderr, "Give a file\n");
 		return 1;
 	}
 
 	int fd = creat(argv[1], 0644);
 
-	if (fd == -1) {
+	if(fd == -1) {
 		fprintf(stderr,
 			   "Error creating file: %i = %s\n",
 			   errno,

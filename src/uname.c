@@ -3,7 +3,7 @@
 #include <string.h>
 #include <sys/utsname.h>
 
-const char*
+const char *
 get_operating_system()
 {
 #ifdef __gnu_linux__
@@ -22,7 +22,7 @@ get_operating_system()
 }
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
 	int c;
 	int all = 0;
@@ -34,10 +34,10 @@ main(int argc, char* argv[])
 	int nothing = 0;
 	struct utsname kernel_info;
 
-	if (argc == 1)
+	if(argc == 1)
 		nothing = 1;
-	while ((c = getopt(argc, argv, "amnrsv")) != -1) {
-		switch (c) {
+	while((c = getopt(argc, argv, "amnrsv")) != -1) {
+		switch(c) {
 			case 'a':
 				all = 1;
 				break;
@@ -61,7 +61,7 @@ main(int argc, char* argv[])
 
 	uname(&kernel_info);
 
-	if (all) {
+	if(all) {
 		printf("%s %s %s %s %s %s\n",
 			  kernel_info.sysname,
 			  kernel_info.nodename,
@@ -70,15 +70,15 @@ main(int argc, char* argv[])
 			  kernel_info.machine,
 			  get_operating_system());
 	} else {
-		if (machine)
+		if(machine)
 			printf("%s ", kernel_info.machine);
-		if (node_name)
+		if(node_name)
 			printf("%s ", kernel_info.nodename);
-		if (kernel_release)
+		if(kernel_release)
 			printf("%s ", kernel_info.release);
-		if (kernel_name || nothing)
+		if(kernel_name || nothing)
 			printf("%s ", kernel_info.sysname);
-		if (operating_system)
+		if(operating_system)
 			printf("%s", get_operating_system());
 		printf("\n");
 	}

@@ -4,9 +4,9 @@
 #include <string.h>
 
 int
-head(FILE* file, int lines)
+head(FILE *file, int lines)
 {
-	if (file == NULL) {
+	if(file == NULL) {
 		fprintf(
 			stderr, "error opening file: %i = %s\n", errno, strerror(errno));
 		return 1;
@@ -14,22 +14,22 @@ head(FILE* file, int lines)
 	int a;
 	int c = 0;
 
-	while ((a = fgetc(file)) != EOF) {
-		if (a == '\n')
+	while((a = fgetc(file)) != EOF) {
+		if(a == '\n')
 			++c;
 
 		putchar(a);
-		if (c == lines)
+		if(c == lines)
 			return lines;
 	}
 	return lines;
 }
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
 	int lines = 10;
-	switch (argc) {
+	switch(argc) {
 		case 1:
 			head(stdin, lines);
 			break;

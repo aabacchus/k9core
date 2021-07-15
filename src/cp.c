@@ -5,19 +5,19 @@
 #include <unistd.h>
 
 int
-copy(const char* src, const char* dst)
+copy(const char *src, const char *dst)
 {
 	int source = open(src, O_RDONLY);
 	int destination = creat(dst, 0644);
 
-	if (destination == -1) {
+	if(destination == -1) {
 		fprintf(stderr,
 			   "Error opening destination file: %i = %s\n",
 			   errno,
 			   strerror(errno));
 		return 1;
 	}
-	if (source == -1) {
+	if(source == -1) {
 		fprintf(stderr,
 			   "Error opening source file: %i = %s\n",
 			   errno,
@@ -26,7 +26,7 @@ copy(const char* src, const char* dst)
 	}
 	int lines;
 	char buf[8912];
-	while ((lines = read(source, buf, sizeof(buf))) > 0)
+	while((lines = read(source, buf, sizeof(buf))) > 0)
 		write(destination, buf, lines);
 	close(destination);
 	close(source);
@@ -34,10 +34,10 @@ copy(const char* src, const char* dst)
 }
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
 	int fd;
-	if (argc == 1) {
+	if(argc == 1) {
 		fprintf(stderr, "usage: cp source destination\n");
 		return 1;
 	} else

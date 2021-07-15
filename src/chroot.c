@@ -4,9 +4,9 @@
 /* UNTESTED */
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
-	if (argc == 1) {
+	if(argc == 1) {
 		fprintf(stderr, "Missing operand\n");
 		return 1;
 	}

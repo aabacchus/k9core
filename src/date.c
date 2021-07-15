@@ -5,7 +5,7 @@
 #include <unistd.h>
 
 int
-main(int argc, char* argv[])
+main(int argc, char *argv[])
 {
 	int c;
 	int u = 0;
@@ -13,10 +13,10 @@ main(int argc, char* argv[])
 	time_t now;
 	now = time(NULL);
 	char FORMAT[256] = "%c";
-	struct tm* timeinfo;
+	struct tm *timeinfo;
 
-	while ((c = getopt(argc, argv, "u")) != -1) {
-		switch (c) {
+	while((c = getopt(argc, argv, "u")) != -1) {
+		switch(c) {
 			case 'u':
 				u = 1;
 				break;
@@ -25,10 +25,10 @@ main(int argc, char* argv[])
 
 	timeinfo = localtime(&now);
 
-	if (u)
+	if(u)
 		timeinfo = gmtime(&now);
 
-	if (argc > optind && argv[optind][0] == '+') {
+	if(argc > optind && argv[optind][0] == '+') {
 		argv[optind]++;
 		strcpy(FORMAT, argv[optind]);
 	}
