@@ -1,8 +1,10 @@
 # This makefile is BSD compatiable: You can run it without gmake on most systems
 
 CC = cc
+PREFIX = /usr/local
 
 compile:
+	mkdir -p bin
 	$(CC)	-c	*.c nouserland/*.c
 	$(CC)	-o bin/cat		cat.o
 	$(CC)	-o bin/chmod		chmod.o
@@ -42,9 +44,10 @@ compile:
 	$(CC) 	-o bin/uname		uname.o
 
 clean:
-	rm *.o
+	rm -f *.o
+	rm -fr bin/
 install:
-	mkdir /usr/local/k9core
-	mv bin/* /usr/local/k9core/
+	mkdir -p $(DESTDIR)$(PREFIX)/k9core
+	cp bin/* /usr/local/k9core/
 .PHONY:
 	clean objclean compile
