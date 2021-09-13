@@ -41,15 +41,9 @@ main(int argc, char *argv[])
 	int all, show_slash, show_line, show_suffix, recursive;
 	all = show_slash = show_line = show_suffix = recursive = 0;
 
-	while((c = getopt(argc, argv, "lapFR1")) != -1) {
+	while((c = getopt(argc, argv, "1FRalp")) != -1) {
 		switch(c) {
-			case 'a':
-				all = 1;
-				break;
-			case 'p':
-				show_slash = 1;
-				break;
-			case 'l':
+			case '1':
 				show_line = 1;
 				break;
 			case 'F':
@@ -59,8 +53,14 @@ main(int argc, char *argv[])
 			case 'R':
 				recursive = 1;
 				break;
-			case '1':
+			case 'a':
+				all = 1;
+				break;
+			case 'l':
 				show_line = 1;
+				break;
+			case 'p':
+				show_slash = 1;
 				break;
 		}
 	}
