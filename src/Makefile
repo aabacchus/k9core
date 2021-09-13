@@ -21,7 +21,7 @@ compile:
 	$(CC)	-o bin/id		id.o
 	$(CC)	-o bin/kill		kill.o
 	$(CC)	-o bin/ln		ln.o
-	$(CC)	-o bin/longname		logname.o
+	$(CC)	-o bin/logname		logname.o
 	$(CC)	-o bin/ls		ls.o
 	$(CC)	-o bin/mkdir		mkdir.o
 	$(CC)	-o bin/mount		mount.o
@@ -48,6 +48,6 @@ clean:
 	rm -fr bin/
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/k9core
-	cp bin/* /usr/local/k9core/
+	cp bin/* $(DESTDIR)$(PREFIX)/k9core/
 .PHONY:
-	clean objclean compile
+	clean compile
