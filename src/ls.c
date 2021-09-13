@@ -41,7 +41,7 @@ main(int argc, char *argv[])
 	int all, show_slash, show_line, show_suffix, recursive;
 	all = show_slash = show_line = show_suffix = recursive = 0;
 
-	while((c = getopt(argc, argv, "1FRalp")) != -1) {
+	while((c = getopt(argc, argv, "1FRahlp")) != -1) {
 		switch(c) {
 			case '1':
 				show_line = 1;
@@ -56,6 +56,9 @@ main(int argc, char *argv[])
 			case 'a':
 				all = 1;
 				break;
+			case 'h':
+				printf("usage: ls [-1FRalp] [file...]\n");
+				return 0;
 			case 'l':
 				show_line = 1;
 				break;
