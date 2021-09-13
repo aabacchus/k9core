@@ -35,10 +35,10 @@ int
 main(int argc, char *argv[])
 {
 	int c;
-	int all, show_slash, show_line, recursive;
-	all = show_slash = show_line = recursive = 0;
+	int all, show_slash, show_line, show_suffix, recursive;
+	all = show_slash = show_line = show_suffix = recursive = 0;
 
-	while((c = getopt(argc, argv, "lapR")) != -1) {
+	while((c = getopt(argc, argv, "lapFR")) != -1) {
 		switch(c) {
 			case 'a':
 				all = 1;
@@ -48,6 +48,10 @@ main(int argc, char *argv[])
 				break;
 			case 'l':
 				show_line = 1;
+				break;
+			case 'F':
+				show_suffix = 1;
+				show_slash = 1;
 				break;
 			case 'R':
 				recursive = 1;
@@ -66,17 +70,39 @@ main(int argc, char *argv[])
 		recursive_list_dirs(directory);
 		return 0;
 	}
+
+	char suffix, separator;
+	suffix = separator = 0;
+	if(!show_line /* && STDOUT_FILENO is a tty */)
+		separator = ' ';
+	else
+		separator = '\n';
+
 	if(dir != NULL) {
 		while((ent = readdir(dir)) != NULL) {
+			suffix = 0;
 			if(ent->d_name[0] == '.' && !all)
 				continue;
-			if(!show_line) {
-				if(ent->d_type == DT_DIR && show_slash)
-					printf("%s/ ", ent->d_name);
-				else
-					printf("%s ", ent->d_name);
-			} else
-				printf("%s\n", ent->d_name);
+			if(show_slash && ent->d_type == DT_DIR)
+				suffix = '/';
+			if(show_suffix) {
+				switch(ent->d_type) {
+					case DT_REG:
+						break;
+					case DT_FIFO:
+						suffix = '|';
+						break;
+					case DT_LNK:
+						suffix = '@';
+						break;
+					case DT_SOCK:
+						suffix = '=';
+						break;
+				}
+				/* TODO: add suffix '*' if executable */
+			}
+
+			printf("%s%c%c", ent->d_name, suffix, separator);
 		}
 	}
 	puts("");
