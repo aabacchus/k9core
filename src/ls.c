@@ -1,8 +1,10 @@
 #include <dirent.h>
 #include <errno.h>
+#include <fcntl.h>
 #include <getopt.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/stat.h>
 
 int
 recursive_list_dirs(const char *directory)
@@ -88,6 +90,17 @@ main(int argc, char *argv[])
 			if(show_suffix) {
 				switch(ent->d_type) {
 					case DT_REG:
+						/* check if executable */
+						struct stat st;
+						if(fstatat(dirfd(dir),
+								 ent->d_name,
+								 &st,
+								 AT_SYMLINK_NOFOLLOW) < 0) {
+							perror(ent->d_name);
+							return -1;
+						}
+						if((st.st_mode & S_IEXEC) != 0)
+							suffix = '*';
 						break;
 					case DT_FIFO:
 						suffix = '|';
@@ -99,10 +112,11 @@ main(int argc, char *argv[])
 						suffix = '=';
 						break;
 				}
-				/* TODO: add suffix '*' if executable */
 			}
-
-			printf("%s%c%c", ent->d_name, suffix, separator);
+			if(suffix != 0)
+				printf("%s%c%c", ent->d_name, suffix, separator);
+			else
+				printf("%s%c", ent->d_name, separator);
 		}
 	}
 	puts("");
