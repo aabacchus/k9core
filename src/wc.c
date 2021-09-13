@@ -23,11 +23,8 @@ wc(const char *filename, struct wc_values *data)
 {
 	FILE *file = fopen(filename, "r");
 	if(file == NULL) {
-		fprintf(stderr,
-			   "error opening file %s: %s\n",
-			   filename,
-			   strerror(errno));
-		return -1;
+		fprintf(stderr, "wc: %s: %s\n", filename, strerror(errno));
+		return 1;
 	}
 	size_t c;
 	char buf;
@@ -94,7 +91,7 @@ main(int argc, char *argv[])
 		}
 	}
 	if(optind == argc) {
-		wc("/dev/stdin", &data); /* lol */
+		return_value = wc("/dev/stdin", &data); /* lol */
 		print_values("stdin", data);
 	} else
 		for(int i = optind; i < argc; i++) {
@@ -111,5 +108,5 @@ main(int argc, char *argv[])
 			  data.total_words,
 			  data.total_bytes);
 
-	return 0;
+	return return_value;
 }

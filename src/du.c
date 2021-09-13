@@ -1,5 +1,7 @@
+#include <errno.h>
 #include <getopt.h>
 #include <stdio.h>
+#include <string.h>
 #include <sys/stat.h>
 
 int
@@ -17,13 +19,16 @@ main(int argc, char *argv[])
 		}
 	}
 	if(argc == optind) {
-		printf("no!\n");
+		printf("usage: du [-h] file...\n");
 		return 1;
 	}
 	for(int i = optind; i < argc; i++) {
-		stat(argv[i], &file_data);
+		if(stat(argv[i], &file_data) == -1) {
+			fprintf(stderr, "du: %s: %s\n", argv[i], strerror(errno));
+			continue;
+		}
 		if(human_readable)
-			printf("%li\t %s", file_data.st_size * 1024, argv[i]);
+			printf("%liK\t %s", file_data.st_size / 1024, argv[i]);
 		else
 			printf("%li\t %s", file_data.st_size, argv[i]);
 		puts("");

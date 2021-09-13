@@ -12,8 +12,7 @@ recursive_list_dirs(const char *directory)
 {
 	DIR *dir = opendir(directory);
 	if(dir == NULL) {
-		fprintf(stderr, "Error opening directory: %s\n", strerror(errno));
-		puts(directory);
+		fprintf(stderr, "ls: %s: %s\n", directory, strerror(errno));
 		return -1;
 	}
 	struct dirent *ent;
@@ -78,8 +77,8 @@ main(int argc, char *argv[])
 		DIR *dir = opendir(directory);
 		if(dir == NULL) {
 			/* maybe we were given a file? */
-			perror(directory);
-            continue;
+			fprintf(stderr, "ls: %s: %s\n", directory, strerror(errno));
+			continue;
 		}
 		struct dirent *ent;
 		if(recursive) {
@@ -110,7 +109,10 @@ main(int argc, char *argv[])
 									 ent->d_name,
 									 &st,
 									 AT_SYMLINK_NOFOLLOW) < 0) {
-								perror(ent->d_name);
+								fprintf(stderr,
+									   "ls: %s: %s\n",
+									   ent->d_name,
+									   strerror(errno));
 								return -1;
 							}
 							if((st.st_mode & S_IEXEC) != 0)

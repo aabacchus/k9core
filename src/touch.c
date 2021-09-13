@@ -8,18 +8,15 @@
 int
 main(int argc, char *argv[])
 {
-	if(argc <= 1) {
-		fprintf(stderr, "Give a file\n");
+	if(argc != 2) {
+		fprintf(stderr, "usage: touch file\n");
 		return 1;
 	}
 
 	int fd = creat(argv[1], 0644);
 
 	if(fd == -1) {
-		fprintf(stderr,
-			   "Error creating file: %i = %s\n",
-			   errno,
-			   strerror(errno));
+		fprintf(stderr, "touch: %s: %s\n", argv[1], strerror(errno));
 		return 1;
 	}
 	close(fd);

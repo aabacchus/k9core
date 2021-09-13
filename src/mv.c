@@ -1,5 +1,7 @@
+#include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 
 /*
@@ -33,6 +35,8 @@ main(int argc, char *argv[])
 	if(argc == 1) {
 		fprintf(stderr, "usage: mv source destination\n");
 		return 1;
-	} else
-		rename(argv[1], argv[2]);
+	} else if(rename(argv[1], argv[2]) == -1) {
+		fprintf(stderr, "mv: %s\n", strerror(errno));
+		return 1;
+	}
 }

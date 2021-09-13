@@ -10,12 +10,8 @@ main(int argc, char *argv[])
 	mode_t mode = atoi(argv[1]);
 	for(int i = 2; i < argc; i++) {
 		int fd = chmod(argv[i], mode);
-		if(fd == -1) fprintf(stderr,
-						    "Error setting %i on %s\n %i = %s",
-						    mode,
-						    argv[i],
-						    errno,
-						    strerror(errno));
+		if(fd == -1)
+			fprintf(stderr, "chmod: %s: %s", argv[i], strerror(errno));
 	}
 
 	return 0;

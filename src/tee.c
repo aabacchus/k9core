@@ -9,15 +9,25 @@ int
 tee(int fd)
 {
 	if(fd == -1) {
-		fprintf(stderr, "%s\n", strerror(errno));
+		fprintf(stderr, "tee: %s\n", strerror(errno));
 		return 1;
 	}
 	char buf[8192];
 	int read_bytes = 0;
 	while((read_bytes = read(0, buf, 8192)) > 0) {
-		write(fd, buf, read_bytes);
+		if(read_bytes == -1) {
+			fprintf(stderr, "tee: %s\n", strerror(errno));
+			return 1;
+		}
+		if(write(fd, buf, read_bytes) == -1) {
+			fprintf(stderr, "tee: %s\n", strerror(errno));
+			return 1;
+		}
 		if(fd != 1)
-			write(1, buf, read_bytes);
+			if(write(1, buf, read_bytes) == -1) {
+				fprintf(stderr, "tee: %s\n", strerror(errno));
+				return 1;
+			}
 	}
 	return 0;
 }

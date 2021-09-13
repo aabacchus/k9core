@@ -8,14 +8,14 @@ int
 main(int argc, char **argv)
 {
 	if(argc == 1) {
-		fprintf(stderr, "usage: stat FILE...\n");
+		fprintf(stderr, "usage: stat file...\n");
 		return 1;
 	}
 	char mod_date[64], acc_date[64], creat_date[64];
 	struct stat file_data;
 	for(int i = 1; i < argc; i++) {
 		if(stat(argv[i], &file_data) == -1) {
-			printf("Cannot stat '%s': %s\n", argv[i], strerror(errno));
+			fprintf(stderr, "stat: %s: %s\n", argv[i], strerror(errno));
 			continue;
 		}
 		/* About file size, location... */

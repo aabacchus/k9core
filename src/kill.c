@@ -1,6 +1,8 @@
+#include <errno.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void
 list_signals(void)
@@ -38,7 +40,7 @@ main(int argc, char *argv[])
 	int sig = 0;
 	pid_t pid;
 	if(argc == 1) {
-		fprintf(stderr, "expected something\n");
+		fprintf(stderr, "usage: kill [signal_number] pid\n");
 		return 1;
 	}
 	if(argv[1][1] == 'l') {
@@ -55,9 +57,12 @@ main(int argc, char *argv[])
 			pid = abs(atoi(argv[2]));
 			break;
 		default:
-			fprintf(stderr, "Specify who to kill\n");
+			fprintf(stderr, "usage: kill [signal_number] pid\n");
 			return 1;
 	}
-	kill(pid, sig);
+	if(kill(pid, sig) == -1) {
+		fprintf(stderr, "kill: %i: %s\n", sig, strerror(errno));
+		return 1;
+	}
 	return 0;
 }

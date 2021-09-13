@@ -8,26 +8,30 @@ int
 copy(const char *src, const char *dst)
 {
 	int source = open(src, O_RDONLY);
-	int destination = creat(dst, 0644);
-
-	if(destination == -1) {
-		fprintf(stderr,
-			   "Error opening destination file: %i = %s\n",
-			   errno,
-			   strerror(errno));
-		return 1;
-	}
 	if(source == -1) {
-		fprintf(stderr,
-			   "Error opening source file: %i = %s\n",
-			   errno,
-			   strerror(errno));
+		fprintf(stderr, "cp: %s: %s\n", src, strerror(errno));
 		return 1;
 	}
+
+	int destination = creat(dst, 0644);
+	if(destination == -1) {
+		fprintf(stderr, "cp: %s: %s\n", dst, strerror(errno));
+		return 1;
+	}
+
 	int lines;
 	char buf[8912];
-	while((lines = read(source, buf, sizeof(buf))) > 0)
-		write(destination, buf, lines);
+	while((lines = read(source, buf, sizeof(buf))) > 0) {
+		if(lines == -1) {
+			fprintf(stderr, "cp: %s: %s\n", src, strerror(errno));
+			return 1;
+		}
+		if(write(destination, buf, lines) == -1) {
+			fprintf(stderr, "cp: %s: %s\n", dst, strerror(errno));
+			return 1;
+		}
+	}
+
 	close(destination);
 	close(source);
 	return 0;
@@ -37,7 +41,7 @@ int
 main(int argc, char *argv[])
 {
 	int fd;
-	if(argc == 1) {
+	if(argc != 3) {
 		fprintf(stderr, "usage: cp source destination\n");
 		return 1;
 	} else

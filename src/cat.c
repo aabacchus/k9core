@@ -17,14 +17,19 @@ cat(int fd, const char *filename)
 		fd = open(filename, O_RDONLY);
 
 	if(fd == -1) {
-		fprintf(stderr, "error opening %s: %s\n", filename, strerror(errno));
+		fprintf(stderr, "cat: %s: %s\n", filename, strerror(errno));
 		return -1;
 	}
 
 	while((c = read(fd, buf, sizeof(buf))) > 0) {
-		if(c == -1)
+		if(c == -1) {
+			fprintf(stderr, "cat: %s: %s\n", filename, strerror(errno));
 			return -1;
-		write(1, buf, c);
+		}
+		if(write(1, buf, c) == -1) {
+			fprintf(stderr, "cat: %s: %s\n", filename, strerror(errno));
+			return -1;
+		}
 	}
 	close(fd);
 	return 0;

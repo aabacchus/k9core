@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -27,6 +28,11 @@ main(int argc, char *argv[])
 
 	if(u)
 		timeinfo = gmtime(&now);
+
+	if(timeinfo == NULL) {
+		fprintf(stderr, "date: %s\n", strerror(errno));
+		return 1;
+	}
 
 	if(argc > optind && argv[optind][0] == '+') {
 		argv[optind]++;

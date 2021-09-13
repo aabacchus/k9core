@@ -7,13 +7,13 @@ int
 main(int argc, char *argv[])
 {
 	if(argc == 1) {
-		fprintf(stderr, "What do I unlink?\n");
+		fprintf(stderr, "usage: unlink file\n");
 		return 1;
 	}
 
 	int fd = unlink(argv[1]);
 	if(fd == -1) {
-		fprintf(stderr, "Error unlinking: %i = %s\n", errno, strerror(errno));
+		fprintf(stderr, "unlink: %s: %s\n", argv[1], strerror(errno));
 	}
 	return 0;
 }

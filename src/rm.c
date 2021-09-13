@@ -12,10 +12,7 @@ main(int argc, char *argv[])
 	for(int i = 1; i < argc; i++) {
 		int fd = remove(argv[i]);
 		if(fd == -1) {
-			fprintf(stderr,
-				   "Error removing file: %i = %s",
-				   errno,
-				   strerror(errno));
+			fprintf(stderr, "rm: %s: %s\n", argv[i], strerror(errno));
 		}
 	}
 	return 0;

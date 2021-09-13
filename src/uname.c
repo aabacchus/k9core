@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <getopt.h>
 #include <stdio.h>
 #include <string.h>
@@ -59,7 +60,10 @@ main(int argc, char *argv[])
 		}
 	}
 
-	uname(&kernel_info);
+	if(uname(&kernel_info) == -1) {
+		fprintf(stderr, "uname: %s\n", strerror(errno));
+		return 1;
+	}
 
 	if(all) {
 		printf("%s %s %s %s %s %s\n",

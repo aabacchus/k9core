@@ -8,7 +8,7 @@ main(int argc, char *argv[])
 {
 
 	if(argc == 1) {
-		printf("Usage: ln oldfile newfile\n");
+		printf("usage: ln [-s] destination link\n");
 		return 1;
 	}
 	int opts, fd, fflag;
@@ -23,10 +23,7 @@ main(int argc, char *argv[])
 				}
 				int symstat = symlink(argv[2], argv[3]);
 				if(symstat == -1) {
-					fprintf(stderr,
-						   "Symlink error: %i = %s",
-						   errno,
-						   strerror(errno));
+					fprintf(stderr, "ln: %s: %s", argv[3], strerror(errno));
 					return 1;
 				}
 				break;
@@ -36,10 +33,7 @@ main(int argc, char *argv[])
 			default:
 				fd = link(argv[1], argv[2]);
 				if(fd == -1) {
-					fprintf(stderr,
-						   "Error creating link: %i = %s\n",
-						   errno,
-						   strerror(errno));
+					fprintf(stderr, "ln: %s: %s\n", argv[2], strerror(errno));
 					return 1;
 				}
 				return 0;

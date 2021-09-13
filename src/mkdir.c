@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <getopt.h>
 #include <stdio.h>
 #include <string.h>
@@ -8,7 +9,7 @@ main(int argc, char *argv[])
 {
 	int c = getopt(argc, argv, "p");
 	if(argc == 1) {
-		fprintf(stderr, "specify path(s) to make\n");
+		fprintf(stderr, "usage [-p] dir...\n");
 		return 1;
 	}
 	/*
@@ -34,7 +35,7 @@ main(int argc, char *argv[])
 
 		int fd = mkdir(argv[i], 420);
 		if(fd == -1) {
-			fprintf(stderr, "Error creating dir %s\n", argv[i]);
+			fprintf(stderr, "mkdir: %s: %s\n", argv[i], strerror(errno));
 			return 1;
 		}
 	}

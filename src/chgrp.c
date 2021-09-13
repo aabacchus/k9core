@@ -24,10 +24,14 @@ main(int argc, char *argv[])
 	gid_t gid = group_data->gr_gid;
 	for(int i = optind + 1; i < argc; i++) {
 		if(follow_symlink) {
-			if(lchown(argv[i], gid, getuid()) == -1)
-				fprintf(stderr, "Error: %i = %s\n", errno, strerror(errno));
+			if(lchown(argv[i], gid, getuid()) == -1) {
+				fprintf(stderr, "chgrp: %s: %s\n", argv[i], strerror(errno));
+				return 1;
+			}
 		} else if(chown(argv[i], gid, getuid()) == -1) {
-			fprintf(stderr, "Error: %i = %s\n", errno, strerror(errno));
+			fprintf(stderr, "chgrp: %s: %s\n", argv[i], strerror(errno));
+			return 1;
 		}
 	}
+	return 0;
 }
