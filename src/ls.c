@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <unistd.h>
 
 int
 recursive_list_dirs(const char *directory)
@@ -75,7 +76,7 @@ main(int argc, char *argv[])
 
 	char suffix, separator;
 	suffix = separator = 0;
-	if(!show_line /* && STDOUT_FILENO is a tty */)
+	if(!show_line && isatty(STDOUT_FILENO))
 		separator = ' ';
 	else
 		separator = '\n';
