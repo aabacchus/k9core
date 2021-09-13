@@ -74,6 +74,11 @@ main(int argc, char *argv[])
 		strcpy(directory, argv[optind]); /* Very dirty code, i'll fix it
 								    * later */
 	DIR *dir = opendir(directory);
+	if(dir == NULL) {
+		/* maybe we were given a file? */
+		perror(directory);
+		return 1;
+	}
 	struct dirent *ent;
 	if(recursive) {
 		recursive_list_dirs(directory);
