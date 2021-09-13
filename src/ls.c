@@ -67,72 +67,75 @@ main(int argc, char *argv[])
 				break;
 		}
 	}
-	char directory[256];
-	if(!argv[optind])
-		strcpy(directory, "./");
-	else
-		strcpy(directory, argv[optind]); /* Very dirty code, i'll fix it
-								    * later */
-	DIR *dir = opendir(directory);
-	if(dir == NULL) {
-		/* maybe we were given a file? */
-		perror(directory);
-		return 1;
-	}
-	struct dirent *ent;
-	if(recursive) {
-		recursive_list_dirs(directory);
-		return 0;
-	}
+	for(; optind < argc; optind++) {
 
-	char suffix, separator;
-	suffix = separator = 0;
-	if(!show_line && isatty(STDOUT_FILENO))
-		separator = ' ';
-	else
-		separator = '\n';
-
-	if(dir != NULL) {
-		while((ent = readdir(dir)) != NULL) {
-			suffix = 0;
-			if(ent->d_name[0] == '.' && !all)
-				continue;
-			if(show_slash && ent->d_type == DT_DIR)
-				suffix = '/';
-			if(show_suffix) {
-				switch(ent->d_type) {
-					case DT_REG:
-						/* check if executable */
-						struct stat st;
-						if(fstatat(dirfd(dir),
-								 ent->d_name,
-								 &st,
-								 AT_SYMLINK_NOFOLLOW) < 0) {
-							perror(ent->d_name);
-							return -1;
-						}
-						if((st.st_mode & S_IEXEC) != 0)
-							suffix = '*';
-						break;
-					case DT_FIFO:
-						suffix = '|';
-						break;
-					case DT_LNK:
-						suffix = '@';
-						break;
-					case DT_SOCK:
-						suffix = '=';
-						break;
-				}
-			}
-			if(suffix != 0)
-				printf("%s%c%c", ent->d_name, suffix, separator);
-			else
-				printf("%s%c", ent->d_name, separator);
+		char directory[256];
+		if(!argv[optind])
+			strcpy(directory, "./");
+		else
+			strcpy(directory, argv[optind]); /* Very dirty code, i'll fix it
+									    * later */
+		DIR *dir = opendir(directory);
+		if(dir == NULL) {
+			/* maybe we were given a file? */
+			perror(directory);
+            continue;
 		}
+		struct dirent *ent;
+		if(recursive) {
+			recursive_list_dirs(directory);
+			return 0;
+		}
+
+		char suffix, separator;
+		suffix = separator = 0;
+		if(!show_line && isatty(STDOUT_FILENO))
+			separator = ' ';
+		else
+			separator = '\n';
+
+		if(dir != NULL) {
+			while((ent = readdir(dir)) != NULL) {
+				suffix = 0;
+				if(ent->d_name[0] == '.' && !all)
+					continue;
+				if(show_slash && ent->d_type == DT_DIR)
+					suffix = '/';
+				if(show_suffix) {
+					switch(ent->d_type) {
+						case DT_REG:
+							/* check if executable */
+							struct stat st;
+							if(fstatat(dirfd(dir),
+									 ent->d_name,
+									 &st,
+									 AT_SYMLINK_NOFOLLOW) < 0) {
+								perror(ent->d_name);
+								return -1;
+							}
+							if((st.st_mode & S_IEXEC) != 0)
+								suffix = '*';
+							break;
+						case DT_FIFO:
+							suffix = '|';
+							break;
+						case DT_LNK:
+							suffix = '@';
+							break;
+						case DT_SOCK:
+							suffix = '=';
+							break;
+					}
+				}
+				if(suffix != 0)
+					printf("%s%c%c", ent->d_name, suffix, separator);
+				else
+					printf("%s%c", ent->d_name, separator);
+			}
+		}
+		puts("");
+		closedir(dir);
 	}
-	puts("");
-	closedir(dir);
 
 	return 0;
 }
