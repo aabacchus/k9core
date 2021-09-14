@@ -38,12 +38,13 @@ main(int argc, char *argv[])
 {
 	int c = getopt(argc, argv, "u"); /* TODO: add -f */
 
-	if(fill_with_zeroes(argv[1]) != 0) {
+	if(fill_with_zeroes(argv[optind]) != 0) {
 		return 1;
 	}
 	if(c == 'u')
-		if(remove(argv[1]) == -1) {
-			fprintf(stderr, "shred: %s: %s\n", argv[1], strerror(errno));
+		if(remove(argv[optind]) == -1) {
+			fprintf(
+				stderr, "shred: %s: %s\n", argv[optind], strerror(errno));
 			return 1;
 		}
 	return 0;
