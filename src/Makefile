@@ -2,10 +2,11 @@
 
 CC = cc
 PREFIX = /usr/local
+XCFLAGS = $(CFLAGS) -Wall
 
 compile:
 	mkdir -p bin
-	$(CC)	-c	*.c nouserland/*.c
+	$(CC)	$(XCFLAGS) -c	*.c nouserland/*.c
 	$(CC)	-o bin/cat		cat.o
 	$(CC)	-o bin/chmod		chmod.o
 	$(CC)	-o bin/chown		chown.o
