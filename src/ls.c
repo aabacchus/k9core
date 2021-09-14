@@ -104,6 +104,7 @@ main(int argc, char *argv[])
 					switch(ent->d_type) {
 						case DT_REG:
 							/* check if executable */
+							; /* statement after label */
 							struct stat st;
 							if(fstatat(dirfd(dir),
 									 ent->d_name,
