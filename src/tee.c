@@ -54,7 +54,7 @@ main(int argc, char *argv[])
 	} else {
 		if(append)
 			FLAGS = O_RDWR | O_APPEND; /* Remember what I said? */
-		fd = open(argv[optind], FLAGS);
+		fd = open(argv[optind], FLAGS, 0644);
 		if(fd == -1) {
 			fprintf(stderr, "tee: %s: %s\n", argv[optind], strerror(errno));
 			return 1;
