@@ -9,6 +9,7 @@ main(int argc, char *argv[])
 {
 	/* TODO: support supplying username as an arg */
 	int c = getopt(argc, argv, "Ggnru");
+	errno = 0;
 	struct passwd *user_data = getpwnam(getlogin());
 	if(user_data == NULL) {
 		fprintf(stderr,

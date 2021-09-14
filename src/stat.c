@@ -7,6 +7,7 @@
 int
 main(int argc, char **argv)
 {
+	int return_value = 0;
 	if(argc == 1) {
 		fprintf(stderr, "usage: stat file...\n");
 		return 1;
@@ -16,6 +17,7 @@ main(int argc, char **argv)
 	for(int i = 1; i < argc; i++) {
 		if(stat(argv[i], &file_data) == -1) {
 			fprintf(stderr, "stat: %s: %s\n", argv[i], strerror(errno));
+			return_value = 1;
 			continue;
 		}
 		/* About file size, location... */
@@ -56,5 +58,5 @@ main(int argc, char **argv)
 			  creat_date);
 	}
 
-	return 0;
+	return return_value;
 }

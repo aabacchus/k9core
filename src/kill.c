@@ -61,7 +61,7 @@ main(int argc, char *argv[])
 			return 1;
 	}
 	if(kill(pid, sig) == -1) {
-		fprintf(stderr, "kill: %i: %s\n", sig, strerror(errno));
+		fprintf(stderr, "kill: %i: %s\n", pid, strerror(errno));
 		return 1;
 	}
 	return 0;

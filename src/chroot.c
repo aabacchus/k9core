@@ -16,4 +16,6 @@ main(int argc, char *argv[])
 		fprintf(stderr, "chroot: %s: %s\n", argv[1], strerror(errno));
 		return 1;
 	}
+	/* exec into a shell? */
+	return 0;
 }

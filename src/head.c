@@ -7,8 +7,7 @@ int
 head(FILE *file, int lines)
 {
 	if(file == NULL) {
-		fprintf(
-			stderr, "error opening file: %i = %s\n", errno, strerror(errno));
+		fprintf(stderr, "head: %s\n", strerror(errno));
 		return 1;
 	}
 	int a;
@@ -29,21 +28,22 @@ int
 main(int argc, char *argv[])
 {
 	int lines = 10;
+	int return_value = 0;
 	switch(argc) {
 		case 1:
-			head(stdin, lines);
+			return_value = head(stdin, lines);
 			break;
 		case 2:
-			head(fopen(argv[1], "r"), lines);
+			return_value = head(fopen(argv[1], "r"), lines);
 			break;
 		case 3:
 			lines = abs(atoi(argv[1]));
-			head(fopen(argv[2], "r"), lines);
+			return_value = head(fopen(argv[2], "r"), lines);
 			break;
 		default:
 			lines = atoi(argv[2]);
-			head(fopen(argv[3], "r"), lines);
+			return_value = head(fopen(argv[3], "r"), lines);
 			break;
 	}
-	return 0;
+	return return_value;
 }

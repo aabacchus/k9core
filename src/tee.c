@@ -8,10 +8,6 @@
 int
 tee(int fd)
 {
-	if(fd == -1) {
-		fprintf(stderr, "tee: %s\n", strerror(errno));
-		return 1;
-	}
 	char buf[8192];
 	int read_bytes = 0;
 	while((read_bytes = read(0, buf, 8192)) > 0) {
@@ -38,7 +34,8 @@ main(int argc, char *argv[])
 	int c;
 	int append = 0;
 	int ignore_signt = 0;
-	int fd = 0;
+	int fd;
+	int return_value = 0;
 	int FLAGS = O_WRONLY | O_CREAT; /* yeah, it will overwrite the thing if it
 							   * can't read what's in the file, thanks
 							   * POSIX! */
@@ -52,21 +49,21 @@ main(int argc, char *argv[])
 				break;
 		}
 	}
-	if(argc == optind) {
-		if(ignore_signt)
-			signal(SIGINT, SIG_IGN);
-		tee(1);
+	if(argc == optind || argv[optind][0] == '-') {
+		fd = 1;
 	} else {
-		if(argv[argc - 1][0] == '-')
-			fd = 1;
 		if(append)
 			FLAGS = O_RDWR | O_APPEND; /* Remember what I said? */
-
-		fd = open(argv[argc - 1], FLAGS);
-		if(ignore_signt)
-			signal(SIGINT, SIG_IGN);
-		if(tee(fd) == 1)
-			return -1;
+		fd = open(argv[optind], FLAGS);
+		if(fd == -1) {
+			fprintf(stderr, "tee: %s: %s\n", argv[optind], strerror(errno));
+			return 1;
+		}
 	}
-	return 0;
+	if(ignore_signt)
+		signal(SIGINT, SIG_IGN);
+
+	return_value = tee(fd);
+	close(fd);
+	return return_value;
 }

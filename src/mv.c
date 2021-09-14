@@ -32,11 +32,12 @@ move(const char *src, const char *dst)
 int
 main(int argc, char *argv[])
 {
-	if(argc == 1) {
+	if(argc != 3) {
 		fprintf(stderr, "usage: mv source destination\n");
 		return 1;
 	} else if(rename(argv[1], argv[2]) == -1) {
 		fprintf(stderr, "mv: %s\n", strerror(errno));
 		return 1;
 	}
+	return 0;
 }

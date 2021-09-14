@@ -18,17 +18,17 @@ cat(int fd, const char *filename)
 
 	if(fd == -1) {
 		fprintf(stderr, "cat: %s: %s\n", filename, strerror(errno));
-		return -1;
+		return 1;
 	}
 
 	while((c = read(fd, buf, sizeof(buf))) > 0) {
 		if(c == -1) {
 			fprintf(stderr, "cat: %s: %s\n", filename, strerror(errno));
-			return -1;
+			return 1;
 		}
 		if(write(1, buf, c) == -1) {
 			fprintf(stderr, "cat: %s: %s\n", filename, strerror(errno));
-			return -1;
+			return 1;
 		}
 	}
 	close(fd);
@@ -37,11 +37,12 @@ cat(int fd, const char *filename)
 int
 main(int argc, char *argv[])
 {
+	int return_value;
 	getopt(argc, argv, "u");
 	if(argc == optind)
-		cat(0, "-");
+		return_value = cat(0, "-");
 	for(int i = optind; i < argc; i++)
-		cat(1, argv[i]);
+		return_value = cat(1, argv[i]);
 
-	return 0;
+	return return_value;
 }

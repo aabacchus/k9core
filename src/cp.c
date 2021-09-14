@@ -40,10 +40,9 @@ copy(const char *src, const char *dst)
 int
 main(int argc, char *argv[])
 {
-	int fd;
 	if(argc != 3) {
 		fprintf(stderr, "usage: cp source destination\n");
 		return 1;
-	} else
-		fd = copy(argv[1], argv[2]);
+	}
+	return copy(argv[1], argv[2]);
 }

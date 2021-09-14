@@ -13,7 +13,7 @@ recursive_list_dirs(const char *directory)
 	DIR *dir = opendir(directory);
 	if(dir == NULL) {
 		fprintf(stderr, "ls: %s: %s\n", directory, strerror(errno));
-		return -1;
+		return 1;
 	}
 	struct dirent *ent;
 
@@ -113,7 +113,7 @@ main(int argc, char *argv[])
 									   "ls: %s: %s\n",
 									   ent->d_name,
 									   strerror(errno));
-								return -1;
+								return 1;
 							}
 							if((st.st_mode & S_IEXEC) != 0)
 								suffix = '*';
