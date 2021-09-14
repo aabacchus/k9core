@@ -23,10 +23,15 @@ fill_with_zeroes(const char *filename)
 	long int bytes_to_write = stat_struct.st_size;
 
 	for(int i = 0; i < bytes_to_write; i++)
-		if(write(fd, "\0\0\0\0\0", bytes_to_write + 2048) == -1) {
+		if(write(fd, "\0", 1) == -1) {
 			fprintf(stderr, "shred: %s: %s\n", filename, strerror(errno));
 			return 1;
 		}
+	if(fsync(fd) == -1) {
+		fprintf(stderr, "shred: %s: %s\n", filename, strerror(errno));
+		return 1;
+	}
+	close(fd);
 	return 0;
 }
 
