@@ -18,13 +18,13 @@ main(int argc, char *argv[]) {
   int c = getopt(argc, argv,"t:");
   if(argc < 2)
     {
-      printf("./mount source destination\n");
+      printf("usage: mount source destination\n");
       return 1;
     }
 
   if(getuid() != 0)
     {
-      fprintf(stderr,"Only root can run this\n");
+      fprintf(stderr,"mount: must be root\n");
       return 1;
     }
   char filesystem[10] = "ext4";
@@ -39,7 +39,8 @@ main(int argc, char *argv[]) {
   int fd = mount(argv[source],argv[destination],filesystem,0,NULL);
   if(fd == -1)
     {
-      fprintf(stderr,"error mounting: %i = %s\n",errno,strerror(errno));
+      fprintf(stderr,"mount: %s\n",strerror(errno));
+      return 1;
     }
   return 0;
 }

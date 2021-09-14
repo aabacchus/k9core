@@ -17,12 +17,14 @@ main(int argc, char *argv[])
     }
   if(argc == 1)
     {
-      printf("give a directory\n");
+      printf("usage: umount mountpoint\n");
       return 1;
     }
   int fd = umount2(argv[destination],options);
   if(fd == -1)
     {
-      fprintf(stderr,"error umounting: %i = %s\n",errno,strerror(errno));
+      fprintf(stderr,"umount: %s: %s\n",argv[destination],strerror(errno));
+      return 1;
     }
+  return 0;
 }
