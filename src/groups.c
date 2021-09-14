@@ -24,10 +24,12 @@ main(int argc, char *argv[])
 	}
 
 	int ngroups = 10;
-	uid_t *groups = malloc(ngroups);
+	gid_t *groups = malloc(ngroups * sizeof(*groups));
 	if(getgrouplist(pwd->pw_name, pwd->pw_gid, groups, &ngroups) == -1) {
 		/* the user is a member of more than ngroups groups */
-		return 1;
+		ngroups += 10;
+		groups = malloc(ngroups * sizeof(*groups));
+		getgrouplist(pwd->pw_name, pwd->pw_gid, groups, &ngroups);
 	}
 	struct group *gr;
 	for(int i = 0; i < ngroups; i++) {
@@ -35,5 +37,6 @@ main(int argc, char *argv[])
 		printf("%s ", gr->gr_name);
 	}
 	printf("\n");
+	free(groups);
 	return 0;
 }
