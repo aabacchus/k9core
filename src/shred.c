@@ -21,15 +21,12 @@ fill_with_zeroes(const char *filename)
 		return 1;
 	}
 	long int bytes_to_write = stat_struct.st_size;
-	char *buf = NULL;
 
-	buf = malloc(bytes_to_write);
 	for(int i = 0; i < bytes_to_write; i++)
 		if(write(fd, "\0\0\0\0\0", bytes_to_write + 2048) == -1) {
 			fprintf(stderr, "shred: %s: %s\n", filename, strerror(errno));
 			return 1;
 		}
-	free(buf);
 	return 0;
 }
 
