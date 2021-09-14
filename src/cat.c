@@ -37,7 +37,7 @@ cat(int fd, const char *filename)
 int
 main(int argc, char *argv[])
 {
-	int return_value;
+	int return_value = 0;
 	getopt(argc, argv, "u");
 	if(argc == optind)
 		return_value = cat(0, "-");
