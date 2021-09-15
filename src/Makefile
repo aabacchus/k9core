@@ -1,4 +1,5 @@
-# This makefile is BSD compatiable: You can run it without gmake on most systems
+# This makefile is BSD compatible: You can run it without gmake on most systems
+.POSIX:
 
 CC = cc
 PREFIX = /usr/local
@@ -46,9 +47,10 @@ compile:
 
 clean:
 	rm -f *.o
+distclean: clean
 	rm -fr bin/
 install:
 	mkdir -p $(DESTDIR)$(PREFIX)/k9core
 	cp bin/* $(DESTDIR)$(PREFIX)/k9core/
 .PHONY:
-	clean compile
+	clean distclean compile
