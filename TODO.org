@@ -16,3 +16,4 @@
   - [ ] touch
   - [X] yes
 - [ ] Add error handling and returning for ln
+- [ ] let programs work on multiple files in argv
